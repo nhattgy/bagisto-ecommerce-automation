@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="com.obiscr.chatgpt.settings.EasyCodeState">
+    <option name="projectFiles" value="$PROJECT_DIR$/src/main/java/actions/commons/BasePage.java;G:/Learn Automation Testing/bagisto-ecommerce-automation/src/main/java/actions/commons/BaseTest.java;G:/Learn Automation Testing/bagisto-ecommerce-automation/src/main/java/actions/commons/BrowserName.java;G:/Learn Automation Testing/bagisto-ecommerce-automation/src/main/java/actions/commons/GlobalConstants.java;G:/Learn Automation Testing/bagisto-ecommerce-automation/src/main/java/actions/PageObjects/user/AuthenticationPO.java;G:/Learn Automation Testing/bagisto-ecommerce-automation/src/main/java/actions/PageObjects/user/PageGenerator.java;G:/Learn Automation Testing/bagisto-ecommerce-automation/src/main/java/actions/reportConfigs/AllureTestListener.java;G:/Learn Automation Testing/bagisto-ecommerce-automation/src/test/java/user/authentication/U01_RegisterWithValidData.java" />
+  </component>
+</project>

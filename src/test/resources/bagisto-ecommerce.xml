@@ -1,0 +1,19 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Suite1" verbose="1">
+    <listeners>
+        <listener class-name="actions.reportConfigs.AllureTestListener"/>
+    </listeners>
+
+
+    <test name="Run Test Bagisto Ecommerce on Chrome">
+        <!-- Define parameters -->
+        <parameter name="browser" value="chrome"/>
+        <parameter name="urlAdmin" value="https://demo.bagisto.com/bagisto-common/admin/login"/>
+        <parameter name="urlUser" value="https://demo.bagisto.com/bagisto-common/"/>
+
+        <classes>
+            <class name="user.authentication.AuthenticationTest"></class>
+        </classes>
+    </test>
+
+</suite>
