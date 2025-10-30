@@ -1,6 +1,7 @@
 package actions.PageObjects.user;
 
 import PageUI.user.AuthenticationUI;
+import PageUI.user.LoginPageUI;
 import actions.commons.BasePage;
 import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
@@ -73,4 +74,17 @@ public class AuthenticationPO extends BasePage {
         waitForElementVisible(driver, AuthenticationUI.SUCCSESS_MESSENGER);
         return isControlDisplayed(driver, AuthenticationUI.SUCCSESS_MESSENGER);
     }
+    @Step("Verify message 'The email has already been taken.'")
+    public boolean verifyEmailAlReadyRegistered() {
+        waitForElementVisible(driver, AuthenticationUI.VERIFY_EMAIL_ALREADY_REGISTERED);
+        return isControlDisplayed(driver, AuthenticationUI.VERIFY_EMAIL_ALREADY_REGISTERED);
+    }
+
+    @Step("Click 'Sign In' link to navigate to Login Page")
+    public LoginPagePO clickLinkSignIn() {
+        waitForElementClickable(driver, AuthenticationUI.LINK_SIGN_IN);
+        clickToElement(driver, AuthenticationUI.LINK_SIGN_IN);
+        return PageGenerator.getLoginPage(driver);
+    }
+
 }

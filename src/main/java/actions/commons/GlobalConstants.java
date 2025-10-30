@@ -9,8 +9,8 @@ public class GlobalConstants {
     public static final String SEPARATOR = System.getProperty("file.separator");
 
     // Wait Infor
-    public static final long SHORT_TIMEOUT = 10;
-    public static final long LONG_TIMEOUT = 30;
+    public static final long SHORT_TIMEOUT = 5;
+    public static final long LONG_TIMEOUT = 10;
 
     // Download/ Upload file
     public static final String UPLOAD_PATH = PROJECT_PATH + SEPARATOR + "uploadFiles" + SEPARATOR;

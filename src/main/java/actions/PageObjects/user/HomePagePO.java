@@ -20,5 +20,15 @@ public class HomePagePO extends BasePage {
     }
 
 
-
+    @Step("Verify that user profile icon or name is displayed on the Home Page")
+    public boolean verifyProfileIsDisplayed() {
+        waitForElementVisible(driver, HomePageUI.VERIFY_PROFILE);
+        return isControlDisplayed(driver, HomePageUI.VERIFY_PROFILE);
+    }
+    @Step("User click logout account")
+    public void clickLogout() {
+        waitForElementClickable(driver, HomePageUI.LINK_LOGOUT);
+        clickToElement(driver, HomePageUI.LINK_LOGOUT);
+        sleepInSeconds(2);
+    }
 }

@@ -5,9 +5,9 @@
     </listeners>
 
 
-    <test name="Run Test Bagisto Ecommerce on Chrome">
+    <test name="Run Test Bagisto Ecommerce on firefox">
         <!-- Define parameters -->
-        <parameter name="browser" value="chrome"/>
+        <parameter name="browser" value="firefox"/>
         <parameter name="urlAdmin" value="https://demo.bagisto.com/bagisto-common/admin/login"/>
         <parameter name="urlUser" value="https://demo.bagisto.com/bagisto-common/"/>
 
