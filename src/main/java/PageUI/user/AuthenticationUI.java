@@ -1,7 +1,6 @@
-package PageUIs.userUI;
+package PageUI.user;
 
 public class AuthenticationUI {
-    public static final String ICON_USER = "css=span.icon-users";
     public static final String LINK_SIGNUP = "xpath=//a[text() = ' Sign Up ']";
     public static final String TEXTBOX_FIRST_NAME = "name=first_name";
     public static final String TEXTBOX_LAST_NAME = "name=last_name";

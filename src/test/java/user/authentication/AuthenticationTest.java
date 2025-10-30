@@ -1,6 +1,7 @@
 package user.authentication;
 
 import actions.PageObjects.user.AuthenticationPO;
+import actions.PageObjects.user.HomePagePO;
 import actions.PageObjects.user.PageGenerator;
 import actions.commons.BaseTest;
 import com.github.javafaker.Faker;
@@ -18,6 +19,7 @@ import utilities.DataHelper;
 public class AuthenticationTest extends BaseTest {
     private WebDriver driver;
     private String urlUser;
+    private HomePagePO homePage;
     private AuthenticationPO authentication;
     private DataHelper dataHelper = DataHelper.getDataHelper();
     String FirstName = dataHelper.getFirstName();
@@ -29,7 +31,7 @@ public class AuthenticationTest extends BaseTest {
     public void beforeClass(String browserName, String urlUser) {
         driver = getBrowserDriver(browserName);
         this.urlUser = urlUser;
-        authentication = PageGenerator.getAuthentication(driver);
+        homePage = PageGenerator.getHomePage(driver);
 
     }
 
@@ -38,8 +40,8 @@ public class AuthenticationTest extends BaseTest {
     @Severity(SeverityLevel.CRITICAL)
     @Test
     public void U01_RegisterWithValidData() {
-        authentication.openPageUrl(driver, urlUser);
-        authentication.clickIconUser();
+        homePage.openPageUrl(driver, urlUser);
+        authentication = homePage.clickIconUser();
         authentication.clickLinkSignUp();
         authentication.enterFirstName(FirstName);
         authentication.enterLastName(LastName);

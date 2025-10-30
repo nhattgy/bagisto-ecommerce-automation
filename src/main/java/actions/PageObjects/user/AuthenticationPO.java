@@ -1,6 +1,6 @@
 package actions.PageObjects.user;
 
-import PageUIs.userUI.AuthenticationUI;
+import PageUI.user.AuthenticationUI;
 import actions.commons.BasePage;
 import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
@@ -12,11 +12,7 @@ public class AuthenticationPO extends BasePage {
         this.driver = driver;
     }
 
-    @Step("Click icon user on header")
-    public void clickIconUser() {
-        waitForElementClickable(driver, AuthenticationUI.ICON_USER);
-        clickToElement(driver, AuthenticationUI.ICON_USER);
-    }
+
 
     @Step("Click 'Sign Up' link")
     public void clickLinkSignUp() {
