@@ -14,4 +14,10 @@ public class PageGenerator {
     public static LoginPagePO getLoginPage(WebDriver driver) {
         return new LoginPagePO(driver);
     }
+    public static ProductPO getProduct(WebDriver driver){
+        return new ProductPO(driver);
+    }
+    public static CartPO getCart(WebDriver driver){
+        return new CartPO(driver);
+    }
 }

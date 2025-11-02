@@ -9,10 +9,10 @@
         <!-- Define parameters -->
         <parameter name="browser" value="firefox"/>
         <parameter name="urlAdmin" value="https://demo.bagisto.com/bagisto-common/admin/login"/>
-        <parameter name="urlUser" value="https://demo.bagisto.com/bagisto-common/"/>
+        <parameter name="urlUser" value="https://demo.bagisto.com/bagisto-240548022053b30392a755cece3efee/"/>
 
         <classes>
-            <class name="user.authentication.AuthenticationTest"></class>
+            <class name="user.cartUser.CartUserTest"></class>
         </classes>
     </test>
 

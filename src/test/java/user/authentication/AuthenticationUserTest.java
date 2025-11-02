@@ -16,7 +16,7 @@ import utilities.DataHelper;
 
 @Epic("User Module")
 @Feature("Authentication")
-public class AuthenticationTest extends BaseTest {
+public class AuthenticationUserTest extends BaseTest {
     private WebDriver driver;
     private String urlUser;
     private HomePagePO homePage;
