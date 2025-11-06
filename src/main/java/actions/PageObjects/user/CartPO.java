@@ -1,13 +1,15 @@
 package actions.PageObjects.user;
 
 import PageUI.user.CartUI;
+import PageUI.user.CheckoutUI;
 import actions.commons.BasePage;
 import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 
 public class CartPO extends BasePage {
     private WebDriver driver;
-    public CartPO (WebDriver driver){
+
+    public CartPO(WebDriver driver) {
         this.driver = driver;
     }
 
@@ -48,4 +50,10 @@ public class CartPO extends BasePage {
         return getTextElement(driver, CartUI.VERIFY_TEXT_REMOVE_SUCCESS);
     }
 
+    @Step("Click Proceed to Checkout button in Cart page")
+    public CheckoutPO clickProceedToCheckout() {
+        waitForElementClickable(driver, CartUI.BUTTON_PROCEED_CART);
+        clickToElement(driver, CartUI.BUTTON_PROCEED_CART);
+        return PageGenerator.getCheckout(driver);
+    }
 }

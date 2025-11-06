@@ -1,6 +1,10 @@
 package actions.commons;
 
 
+import actions.PageObjects.user.AuthenticationPO;
+import actions.PageObjects.user.HomePagePO;
+import actions.PageObjects.user.LoginPagePO;
+import actions.PageObjects.user.PageGenerator;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
@@ -8,12 +12,10 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.safari.SafariDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.testng.Assert;
 import org.testng.annotations.BeforeSuite;
 
 import java.io.File;
 import java.io.IOException;
-import java.time.Duration;
 import java.util.Random;
 public class BaseTest extends BasePage {
     private WebDriver driver;
@@ -44,6 +46,21 @@ public class BaseTest extends BasePage {
         driver.manage().window().maximize();
 
         return driver;
+    }
+    public void LoginBeforeTest(String urlUser) {
+        HomePagePO homePage;
+        LoginPagePO loginPage;
+        AuthenticationPO authentication;
+        homePage = PageGenerator.getHomePage(driver);
+        loginPage = PageGenerator.getLoginPage(driver);
+        authentication = PageGenerator.getAuthentication(driver);
+        homePage.openPageUrl(driver, urlUser);
+        homePage.acceptCookie();
+        homePage.clickIconUser();
+        authentication.clickLinkSignIn();
+        loginPage.enterEmail("john@example.com");
+        loginPage.enterPassword("demo123");
+        loginPage.clickSignIn();
     }
 
     protected void closeBrowserDriver() {

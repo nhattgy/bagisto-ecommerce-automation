@@ -5,14 +5,14 @@
     </listeners>
 
 
-    <test name="Run Test Bagisto Ecommerce on firefox">
+    <test name="Run Test Bagisto Ecommerce on chrome">
         <!-- Define parameters -->
-        <parameter name="browser" value="firefox"/>
+        <parameter name="browser" value="chrome"/>
         <parameter name="urlAdmin" value="https://demo.bagisto.com/bagisto-common/admin/login"/>
-        <parameter name="urlUser" value="https://demo.bagisto.com/bagisto-240548022053b30392a755cece3efee/"/>
+        <parameter name="urlUser" value="https://demo.bagisto.com/bagisto-common/"/>
 
         <classes>
-            <class name="user.cartUser.CartUserTest"></class>
+            <class name="user.orderUser.OrderUserTest"></class>
         </classes>
     </test>
 

@@ -7,4 +7,6 @@ public class CartUI {
     public static final String LINK_REMOVE_PRODUCT = "xpath=//div[@class='text-right max-md:hidden']//span[text() = ' Remove ']";
     public static final String BUTTON_AGREE = "xpath=//button[text() = 'Agree']";
     public static final String VERIFY_TEXT_REMOVE_SUCCESS = "xpath=//p[@role='heading']";
+    public static final String BUTTON_PROCEED_CART = "xpath=//a[text() = ' Proceed To Checkout ']";
+
 }

@@ -1,4 +1,4 @@
-package user.authentication;
+package user.authenticationUser;
 
 import actions.PageObjects.user.AuthenticationPO;
 import actions.PageObjects.user.HomePagePO;

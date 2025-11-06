@@ -20,4 +20,10 @@ public class PageGenerator {
     public static CartPO getCart(WebDriver driver){
         return new CartPO(driver);
     }
+    public static CheckoutPO getCheckout(WebDriver driver){
+        return new CheckoutPO(driver);
+    }
+    public static OrderPO getOrder(WebDriver driver){
+        return new OrderPO(driver);
+    }
 }

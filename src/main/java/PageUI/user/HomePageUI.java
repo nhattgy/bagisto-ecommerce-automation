@@ -7,4 +7,7 @@ public class HomePageUI {
     public static final String TEXTBOX_SEARCH = "css=input[placeholder = 'Search products here']";
     public static final String LIST_MENU_HEADER_PARENT = "xpath=//div[@class='flex items-center']//a[text() = '%s']";
     public static final String LIST_MENU_HEADER_CHILD = "xpath=//p//a[text() = '%s']";
+    public static final String ACCEPT_BUTTON_COOKIE = "xpath=//button[text() = ' Accept ']";
+    public static final String LINK_ORDER_PAGE = "xpath=//a[text() = ' Orders ']";
+
 }
