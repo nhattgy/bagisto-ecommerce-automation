@@ -1,7 +1,6 @@
 package actions.PageObjects.user;
 
 import PageUI.user.AuthenticationUI;
-import PageUI.user.LoginPageUI;
 import actions.commons.BasePage;
 import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
@@ -84,7 +83,7 @@ public class AuthenticationPO extends BasePage {
     public LoginPagePO clickLinkSignIn() {
         waitForElementClickable(driver, AuthenticationUI.LINK_SIGN_IN);
         clickToElement(driver, AuthenticationUI.LINK_SIGN_IN);
-        return PageGenerator.getLoginPage(driver);
+        return PageGeneratorUser.getLoginPage(driver);
     }
 
 }

@@ -1,22 +1,36 @@
 package actions.commons;
 
 
+import actions.PageObjects.admin.AuthenticationAdminPO;
+import actions.PageObjects.admin.DashboardAdminPO;
+import actions.PageObjects.admin.PageGeneratorAdmin;
 import actions.PageObjects.user.AuthenticationPO;
 import actions.PageObjects.user.HomePagePO;
 import actions.PageObjects.user.LoginPagePO;
-import actions.PageObjects.user.PageGenerator;
+import actions.PageObjects.user.PageGeneratorUser;
+import actions.factoryBrowser.*;
+import actions.factoryEnvironment.BrowserStackFactory;
+import actions.factoryEnvironment.EnvironmentList;
+import actions.factoryEnvironment.LocalFactory;
+import org.openqa.selenium.MutableCapabilities;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.safari.SafariDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.testng.Assert;
 import org.testng.annotations.BeforeSuite;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.HashMap;
 import java.util.Random;
+
 public class BaseTest extends BasePage {
     private WebDriver driver;
     private static final Logger log = LoggerFactory.getLogger(BaseTest.class);
@@ -24,36 +38,66 @@ public class BaseTest extends BasePage {
     public WebDriver getDriver() {
         return driver;
     }
-    public WebDriver getBrowserDriver(String browserName) {
-        BrowserName browser = BrowserName.valueOf(browserName.toUpperCase());
+
+    protected WebDriver getBrowserDriver(String browserName) {
+        BrowserList browser = BrowserList.valueOf(browserName.toUpperCase());
         switch (browser) {
             case CHROME:
-                driver = new ChromeDriver();
+                driver = new ChromeDriverManager().getBrowserDriver();
                 break;
             case FIREFOX:
-                driver = new FirefoxDriver();
+                driver = new FirefoxDriverManager().getBrowserDriver();
                 break;
             case EDGE:
-                driver = new EdgeDriver();
+                driver = new EdgeDriverManager().getBrowserDriver();
                 break;
             case SAFARI:
-                driver = new SafariDriver();
+                driver = new SafariDriverManger().getBrowserDriver();
                 break;
+            case HEADLESS_CHROME:
+                driver = new HeadlessChromeDriverManager().getBrowserDriver();
+                break;
+            case HEADLESS_EDGE:
+                driver = new HeadlessEdgeDriverManager().getBrowserDriver();
+                break;
+            case HEADLESS_FIREFOX:
+                driver = new HeadlessFirefoxDriverManager().getBrowserDriver();
             default:
-                throw new RuntimeException("Browser name is not supported: " + browserName);
+                throw new BrowserNotSupportedException("Browser name is not supported: " + browserName);
         }
 
         driver.manage().window().maximize();
 
         return driver;
     }
-    public void LoginBeforeTest(String urlUser) {
+
+    protected WebDriver getBrowserDriver(String environment, String osName, String osVersion, String browserName, String browserVersion) {
+
+        EnvironmentList environmentList = EnvironmentList.valueOf(environment.toUpperCase());
+        switch (environmentList) {
+            case LOCAL:
+                driver = new LocalFactory(browserName).createDriver();
+                break;
+
+            case GRID_BROWSERSTACK:
+                driver = new BrowserStackFactory(browserName, browserVersion, osName, osVersion).createDriver();
+                break;
+
+            default:
+                throw new RuntimeException("Not support Environment");
+        }
+
+        driver.manage().window().maximize();
+        return driver;
+    }
+
+    public void LoginUserBeforeTest(String urlUser) {
         HomePagePO homePage;
         LoginPagePO loginPage;
         AuthenticationPO authentication;
-        homePage = PageGenerator.getHomePage(driver);
-        loginPage = PageGenerator.getLoginPage(driver);
-        authentication = PageGenerator.getAuthentication(driver);
+        homePage = PageGeneratorUser.getHomePage(driver);
+        loginPage = PageGeneratorUser.getLoginPage(driver);
+        authentication = PageGeneratorUser.getAuthentication(driver);
         homePage.openPageUrl(driver, urlUser);
         homePage.acceptCookie();
         homePage.clickIconUser();
@@ -61,6 +105,17 @@ public class BaseTest extends BasePage {
         loginPage.enterEmail("john@example.com");
         loginPage.enterPassword("demo123");
         loginPage.clickSignIn();
+    }
+
+    public void LoginAdminBeforeTest(String urlAdmin) {
+        AuthenticationAdminPO authenticationAdmin;
+        DashboardAdminPO dashboardAdmin;
+        authenticationAdmin = PageGeneratorAdmin.getAuthenticationAdmin(driver);
+        authenticationAdmin.openPageUrl(driver, urlAdmin);
+        dashboardAdmin = authenticationAdmin.enterEmailAddress(GlobalConstants.EMAIL_ADDRESS_ADMIN);
+        authenticationAdmin.enterPassword(GlobalConstants.PASSWORD_ADMIN);
+        authenticationAdmin.clickSignIn();
+        Assert.assertTrue(authenticationAdmin.menuDashboardIsDisplayed());
     }
 
     protected void closeBrowserDriver() {

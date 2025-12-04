@@ -1,6 +1,8 @@
 package actions.commons;
 
 
+import PageUI.admin.CategoryUI;
+import PageUI.user.ProfileUI;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.Color;
@@ -290,8 +292,13 @@ public class BasePage {
     }
 
     public void switchToIframe(WebDriver driver, String locator) {
-        driver.switchTo().frame(getElement(driver, locator));
+        WebDriverWait explicitWait = new WebDriverWait(driver, Duration.ofSeconds(GlobalConstants.LONG_TIMEOUT));
+
+        By byLocator = getLocator(locator); // dùng hàm chuyển "css=..." → By.cssSelector(...)
+        explicitWait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(byLocator));
     }
+
+
 
     public void switchToDefaultContent(WebDriver driver) {
         driver.switchTo().defaultContent();
@@ -330,7 +337,10 @@ public class BasePage {
         WebElement element = getElement(driver, castParameter(locator, restParameter));
         new Actions(driver).sendKeys(element, keys).perform();
     }
-
+    public void openNewTabJs(WebDriver driver){
+        ((JavascriptExecutor)driver).executeScript("window.open('about:blank','_blank');");
+        System.out.println(driver.getTitle());
+    }
     public void hightlightElement(WebDriver driver, String locator) {
         WebElement element = getElement(driver, locator);
         String originalStyle = element.getAttribute("style");
@@ -349,7 +359,6 @@ public class BasePage {
 
     public void clickToElementByJS(WebDriver driver, String locator) {
         ((JavascriptExecutor) driver).executeScript("arguments[0].click();", getElement(driver, locator));
-        sleepInSeconds(3);
     }
 
     public void clickToElementByJS(WebDriver driver, String locator, String... restParameter) {
@@ -436,9 +445,32 @@ public class BasePage {
         fullFileName = fullFileName.trim();
 
         // Gửi chuỗi đường dẫn đầy đủ vào ô upload (input type="file")
-        // getElement(driver, HomeJqueryUI.INPUT_UPLOAD).sendKeys(fullFileName);
+        getElement(driver, ProfileUI.INPUT_FILE_IMAGE).sendKeys(fullFileName);
+    }
+    public void uploadLocalFile(WebDriver driver, String fileName) {
+        String filePath = GlobalConstants.UPLOAD_PATH + fileName;
+        getElement(driver, CategoryUI.INPUT_FILE_IMAGE_LOGO).sendKeys(filePath);
     }
 
+
+    public void uploadMultipleFilesLogo(WebDriver driver, String... fileNames) {
+        // Lấy đường dẫn tuyệt đối tới thư mục chứa file upload
+        String filePath = GlobalConstants.UPLOAD_PATH;
+
+        // Dùng StringBuilder để nối tên file nhanh hơn
+        String fullFileName = "";
+
+        // Ghép từng fileName thành 1 chuỗi, cách nhau bởi dấu xuống dòng "\n"
+        for (String file : fileNames) {
+            fullFileName += filePath + file + "\n";
+        }
+
+        // Trim để bỏ ký tự xuống dòng cuối cùng
+        fullFileName = fullFileName.trim();
+
+        // Gửi chuỗi đường dẫn đầy đủ vào ô upload (input type="file")
+        getElement(driver, CategoryUI.INPUT_FILE_IMAGE_LOGO).sendKeys(fullFileName);
+    }
     public void waitForElementSelected(WebDriver driver, String locator, String... restParameter) {
         new WebDriverWait(driver, Duration.ofSeconds(GlobalConstants.LONG_TIMEOUT)).until(d ->
                 new Select(getElement(driver, castParameter(locator, restParameter)))

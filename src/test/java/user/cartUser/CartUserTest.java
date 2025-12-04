@@ -2,7 +2,7 @@ package user.cartUser;
 
 import actions.PageObjects.user.CartPO;
 import actions.PageObjects.user.HomePagePO;
-import actions.PageObjects.user.PageGenerator;
+import actions.PageObjects.user.PageGeneratorUser;
 import actions.PageObjects.user.ProductPO;
 import actions.commons.BaseTest;
 import io.qameta.allure.*;
@@ -25,7 +25,7 @@ public class CartUserTest extends BaseTest {
     public void beforeClass(String browserName, String urlUser){
         driver = getBrowserDriver(browserName);
         this.urlUser = urlUser;
-        homePage = PageGenerator.getHomePage(driver);
+        homePage = PageGeneratorUser.getHomePage(driver);
     }
     @Story("User adds a product to cart from the product detail page")
     @Description("Verify that user can add a product to the cart successfully when clicking on a product from category page.")

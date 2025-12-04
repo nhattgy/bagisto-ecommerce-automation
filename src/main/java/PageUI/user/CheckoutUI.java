@@ -24,4 +24,6 @@ public class CheckoutUI {
     public static final String SELECT_CREDIT_UNION = "xpath=//span[text() = 'CREDIT UNION 1']";
     public static final String BUTTON_COMPLETE_PURCHASE = "css=button[data-id = 'payment-submit-btn']";
     public static final String VERIFY_ORDER_COMPLETE_PAYPAL = "xpath=//p[text() = 'Payment completed!']";
+
+    public static final String TEXT_ID_PRODUCT = "xpath=//a[contains(@href, 'orders/view')]";
 }

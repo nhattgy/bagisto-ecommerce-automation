@@ -26,4 +26,9 @@ public class OrderPO extends BasePage {
         waitForElementVisible(driver, OrderUI.VERIFY_DETAIL_ORDER, nameProduct);
         return isControlDisplayed(driver, OrderUI.VERIFY_DETAIL_ORDER,nameProduct);
     }
+    @Step("Verify that the order with ID: {numberID} displays the updated status")
+    public boolean verifyOrderIDChangeStatus(String numberID) {
+        waitForElementVisible(driver, OrderUI.VERIFY_ORDER_PROCESSING, numberID);
+        return isControlDisplayed(driver, OrderUI.VERIFY_ORDER_PROCESSING,numberID);
+    }
 }

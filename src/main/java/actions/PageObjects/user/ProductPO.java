@@ -11,6 +11,7 @@ public class ProductPO extends BasePage {
     public ProductPO(WebDriver driver) {
         this.driver = driver;
     }
+
     @Step("Verify title result search")
     public String verifyTextResults() {
         waitForElementVisible(driver, ProductUI.VERIFY_TEXT_SEARCH_RESULTS);
@@ -22,11 +23,13 @@ public class ProductPO extends BasePage {
         waitForElementVisible(driver, ProductUI.VERIFY_QUANTITY_RESULT_SEARCH);
         return getElementsSize(driver, ProductUI.VERIFY_QUANTITY_RESULT_SEARCH);
     }
+
     @Step("User click product : {'productName'}")
     public void clickOnProductByName(String productName) {
         waitForElementClickable(driver, ProductUI.LINK_PRODUCT, productName);
-        clickToElement(driver, ProductUI.LINK_PRODUCT,productName);
+        clickToElement(driver, ProductUI.LINK_PRODUCT, productName);
     }
+
     @Step("Verify button is displayed on product")
     public boolean verifyBuyNowButtonIsDisplayed() {
         waitForElementVisible(driver, ProductUI.VERIFY_BUTTON_BUY_NOW);
@@ -61,7 +64,7 @@ public class ProductPO extends BasePage {
     public CartPO clickButtonViewCart() {
         waitForElementClickable(driver, ProductUI.BUTTON_VIEW_CART);
         clickToElement(driver, ProductUI.BUTTON_VIEW_CART);
-        return PageGenerator.getCart(driver);
+        return PageGeneratorUser.getCart(driver);
     }
 
     @Step("Verify Cart page title is displayed")
@@ -70,4 +73,71 @@ public class ProductPO extends BasePage {
         return isControlDisplayed(driver, ProductUI.VERIFY_HEADING_CART_TITLE);
     }
 
+    @Step("Verify product '{productName}' is displayed on homepage search results")
+    public boolean verifyTextResultsHomepage(String productName) {
+        waitForElementVisible(driver, ProductUI.VERIFY_TEXT_SEARCH_RESULTS_HOMEPAGE, productName);
+        return isControlDisplayed(driver, ProductUI.VERIFY_TEXT_SEARCH_RESULTS_HOMEPAGE, productName);
+    }
+
+    @Step("Verify product '{productName}' is undisplayed on homepage search results")
+    public boolean verifyTextSearchNoProduct(String productName) {
+        waitForElementVisible(driver, ProductUI.VERIFY_TEXT_NO_RESULTS, productName);
+        return isControlDisplayed(driver, ProductUI.VERIFY_TEXT_NO_RESULTS, productName);
+    }
+
+    @Step("Verify that the product price is updated to: {price}")
+    public boolean verifyPriceAfterEdit(String price) {
+        waitForElementVisible(driver, ProductUI.VERIFY_PRICE_AFTER_EDIT, price);
+        return isControlDisplayed(driver, ProductUI.VERIFY_PRICE_AFTER_EDIT, price);
+    }
+
+
+
+    @Step("Click Review tab")
+    public void clickToReview() {
+        waitForElementClickable(driver, ProductUI.BUTTON_REVIEW);
+        clickToElement(driver, ProductUI.BUTTON_REVIEW);
+    }
+
+    @Step("Click Write a Review button")
+    public void clickWriteAReview() {
+        waitForElementClickable(driver, ProductUI.BUTTON_WRITE_REVIEW);
+        clickToElement(driver, ProductUI.BUTTON_WRITE_REVIEW);
+    }
+
+    @Step("Enter review title")
+    public void enterTitle(String title) {
+        waitForElementVisible(driver, ProductUI.INPUT_TITLE);
+        sendKeyToElement(driver, ProductUI.INPUT_TITLE, title);
+    }
+
+    @Step("Enter review comment")
+    public void enterComment(String comment) {
+        waitForElementVisible(driver, ProductUI.INPUT_COMMENT);
+        sendKeyToElement(driver, ProductUI.INPUT_COMMENT, comment);
+    }
+
+    @Step("Submit review form")
+    public void clickSubmitReview() {
+        waitForElementClickable(driver, ProductUI.BUTTON_SUBMIT_REVIEW);
+        clickToElement(driver, ProductUI.BUTTON_SUBMIT_REVIEW);
+    }
+
+    @Step("Verify success message displayed")
+    public boolean verifyCommentSuccess() {
+        waitForElementVisible(driver, ProductUI.VERIFY_COMMENT_SUCCESS);
+        return isControlDisplayed(driver, ProductUI.VERIFY_COMMENT_SUCCESS);
+    }
+
+    @Step("Verify review is displayed on review list")
+    public boolean verifyReviewIsDisplayed(String title) {
+        waitForElementVisible(driver, ProductUI.VERIFY_REVIEW_IS_DISPLAYED, title);
+        return isControlDisplayed(driver, ProductUI.VERIFY_REVIEW_IS_DISPLAYED, title);
+    }
+
+    @Step("Verify review is not displayed")
+    public boolean verifyReviewIsNotDisplayed(String title) {
+        waitForElementInVisible(driver, ProductUI.VERIFY_REVIEW_IS_DISPLAYED, title);
+        return true;
+    }
 }

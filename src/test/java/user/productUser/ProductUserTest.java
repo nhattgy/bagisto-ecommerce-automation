@@ -1,7 +1,7 @@
 package user.productUser;
 
 import actions.PageObjects.user.HomePagePO;
-import actions.PageObjects.user.PageGenerator;
+import actions.PageObjects.user.PageGeneratorUser;
 import actions.PageObjects.user.ProductPO;
 import actions.commons.BaseTest;
 import io.qameta.allure.*;
@@ -23,7 +23,7 @@ public class ProductUserTest extends BaseTest {
     public void beforeClass(String browserName, String urlUser){
         driver = getBrowserDriver(browserName);
         this.urlUser = urlUser;
-        homePage = PageGenerator.getHomePage(driver);
+        homePage = PageGeneratorUser.getHomePage(driver);
     }
     @Story("Product Search Functionality")
     @Description("Verify that user can search for products by keyword and see correct search results.")

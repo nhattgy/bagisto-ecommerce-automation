@@ -2,13 +2,15 @@ package user.orderUser;
 
 import actions.PageObjects.user.*;
 import actions.commons.BaseTest;
+import io.qameta.allure.*;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
-
+@Epic("Order Management")
+@Feature("Place and View Orders")
 public class OrderUserTest extends BaseTest {
     private WebDriver driver;
     private String urlUser;
@@ -22,10 +24,12 @@ public class OrderUserTest extends BaseTest {
     public void beforeClass(String browserName, String urlUser){
         driver = getBrowserDriver(browserName);
         this.urlUser = urlUser;
-        homePage = PageGenerator.getHomePage(driver);
-        LoginBeforeTest(urlUser);
+        homePage = PageGeneratorUser.getHomePage(driver);
+        LoginUserBeforeTest(urlUser);
     }
-
+    @Story("User places an order successfully after checkout")
+    @Description("Verify that a logged-in user can complete the checkout process and place an order successfully.")
+    @Severity(SeverityLevel.CRITICAL)
     @Test
     public void U14_PlaceOrderSuccessfully(){
         homePage.openPageUrl(driver, urlUser);
@@ -51,6 +55,9 @@ public class OrderUserTest extends BaseTest {
         order = homePage.clickOrderPage();
         Assert.assertTrue(order.verifyOrder());
     }
+    @Story("User views order details")
+    @Description("Verify that a logged-in user can view order details of previously placed orders.")
+    @Severity(SeverityLevel.NORMAL)
     @Test
     public void U15_ViewOrderDetails(){
         order.viewOrderDetails();

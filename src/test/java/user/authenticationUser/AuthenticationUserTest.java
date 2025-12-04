@@ -3,7 +3,7 @@ package user.authenticationUser;
 import actions.PageObjects.user.AuthenticationPO;
 import actions.PageObjects.user.HomePagePO;
 import actions.PageObjects.user.LoginPagePO;
-import actions.PageObjects.user.PageGenerator;
+import actions.PageObjects.user.PageGeneratorUser;
 import actions.commons.BaseTest;
 import io.qameta.allure.*;
 import org.openqa.selenium.WebDriver;
@@ -33,7 +33,7 @@ public class AuthenticationUserTest extends BaseTest {
     public void beforeClass(String browserName, String urlUser) {
         driver = getBrowserDriver(browserName);
         this.urlUser = urlUser;
-        homePage = PageGenerator.getHomePage(driver);
+        homePage = PageGeneratorUser.getHomePage(driver);
 
     }
 
@@ -89,7 +89,6 @@ public class AuthenticationUserTest extends BaseTest {
         loginPage.clickSignIn();
         homePage.clickIconUser();
         Assert.assertTrue(homePage.verifyProfileIsDisplayed());
-
     }
 
     @Story("Login with invalid password")

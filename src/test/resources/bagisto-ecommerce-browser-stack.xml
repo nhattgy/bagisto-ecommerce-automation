@@ -1,0 +1,32 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Suite1" verbose="1" parallel="none" thread-count="2">
+    <listeners>
+        <listener class-name="actions.reportConfigs.AllureTestListener"/>
+    </listeners>
+
+
+    <test name="Run Test on chrome Window 10">
+        <parameter name="urlAdmin" value="https://demo.bagisto.com/bagisto-common/admin/login"/>
+        <parameter name="urlUser" value="https://demo.bagisto.com/bagisto-common/"/>
+        <parameter name="environment" value="GRID_BROWSERSTACK"></parameter>
+        <parameter name="osName" value="Windows"></parameter>
+        <parameter name="osVersion" value="10"></parameter>
+        <parameter name="browserName" value="Chrome"></parameter>
+        <parameter name="browserVersion" value="141.0"></parameter>
+        <classes>
+            <class name="e2efollow.AdminSettingAccount"></class>
+        </classes>
+    </test>
+    <test name="Run Test on Safari Mac Monterey">
+        <parameter name="urlAdmin" value="https://demo.bagisto.com/bagisto-common/admin/login"/>
+        <parameter name="urlUser" value="https://demo.bagisto.com/bagisto-common/"/>
+        <parameter name="environment" value="GRID_BROWSERSTACK"></parameter>
+        <parameter name="osName" value="OS X"></parameter>
+        <parameter name="osVersion" value="Monterey"></parameter>
+        <parameter name="browserName" value="Safari"></parameter>
+        <parameter name="browserVersion" value="15.6"></parameter>
+        <classes>
+            <class name="e2efollow.AdminSettingAccount"></class>
+        </classes>
+    </test>
+</suite>

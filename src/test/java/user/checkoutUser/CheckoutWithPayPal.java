@@ -22,8 +22,8 @@ public class CheckoutWithPayPal extends BaseTest {
     @BeforeClass
     public void beforeClass(String browserName, String urlUser) {
         driver = getBrowserDriver(browserName);
-        homePage = PageGenerator.getHomePage(driver);
-        LoginBeforeTest(urlUser);
+        homePage = PageGeneratorUser.getHomePage(driver);
+        LoginUserBeforeTest(urlUser);
     }
     @Story("Logged-in user completes order using PayPal payment")
     @Description("Verify checkout flow using PayPal as a logged-in user")

@@ -17,7 +17,7 @@ public class HomePagePO extends BasePage {
     public AuthenticationPO clickIconUser() {
         waitForElementClickable(driver, HomePageUI.ICON_USER);
         clickToElement(driver, HomePageUI.ICON_USER);
-        return PageGenerator.getAuthentication(driver);
+        return PageGeneratorUser.getAuthentication(driver);
     }
 
 
@@ -39,7 +39,7 @@ public class HomePagePO extends BasePage {
         waitForElementVisible(driver, HomePageUI.TEXTBOX_SEARCH);
         sendKeyToElement(driver, HomePageUI.TEXTBOX_SEARCH, keywordSearch);
         pressKeyToElement(driver, HomePageUI.TEXTBOX_SEARCH, Keys.ENTER);
-        return PageGenerator.getProduct(driver);
+        return PageGeneratorUser.getProduct(driver);
     }
 
     @Step("Click on menu link '{linkMenuHeaderParent}' in the header")
@@ -58,7 +58,7 @@ public class HomePagePO extends BasePage {
     public ProductPO clickLinkMenuChildProduct(String linkMenuChild) {
         waitForElementClickable(driver, HomePageUI.LIST_MENU_HEADER_CHILD, linkMenuChild);
         clickToElement(driver, HomePageUI.LIST_MENU_HEADER_CHILD, linkMenuChild);
-        return PageGenerator.getProduct(driver);
+        return PageGeneratorUser.getProduct(driver);
     }
     @Step("User accept cookie on website")
     public void acceptCookie() {
@@ -73,6 +73,12 @@ public class HomePagePO extends BasePage {
     public OrderPO clickOrderPage() {
         waitForElementClickable(driver, HomePageUI.LINK_ORDER_PAGE);
         clickToElement(driver, HomePageUI.LINK_ORDER_PAGE);
-        return PageGenerator.getOrder(driver);
+        return PageGeneratorUser.getOrder(driver);
+    }
+    @Step("User open Profile Page")
+    public ProfilePO openProfilePage() {
+        waitForElementClickable(driver, HomePageUI.LINK_PROFILE_PAGE);
+        clickToElement(driver, HomePageUI.LINK_PROFILE_PAGE);
+        return PageGeneratorUser.getProfilePage(driver);
     }
 }

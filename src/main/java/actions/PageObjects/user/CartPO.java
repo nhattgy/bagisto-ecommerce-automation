@@ -1,7 +1,6 @@
 package actions.PageObjects.user;
 
 import PageUI.user.CartUI;
-import PageUI.user.CheckoutUI;
 import actions.commons.BasePage;
 import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
@@ -54,6 +53,66 @@ public class CartPO extends BasePage {
     public CheckoutPO clickProceedToCheckout() {
         waitForElementClickable(driver, CartUI.BUTTON_PROCEED_CART);
         clickToElement(driver, CartUI.BUTTON_PROCEED_CART);
-        return PageGenerator.getCheckout(driver);
+        return PageGeneratorUser.getCheckout(driver);
+    }
+
+    @Step("User clicks 'Estimate Shipping & Tax'")
+    public void clickEstimateCart() {
+        waitForElementClickable(driver, CartUI.ESTIMATE_CART);
+        clickToElement(driver, CartUI.ESTIMATE_CART);
+    }
+
+    @Step("User selects country: {country}")
+    public void selectCountry(String country) {
+        waitForElementClickable(driver, CartUI.SELECT_COUNTRY);
+        selectItemInDropDown(driver, CartUI.SELECT_COUNTRY, country);
+    }
+
+    @Step("User enters state: {state}")
+    public void enterState(String state) {
+        waitForElementVisible(driver, CartUI.INPUT_STATE);
+        sendKeyToElement(driver, CartUI.INPUT_STATE, state);
+    }
+
+    @Step("User enters zipcode: {zipcode}")
+    public void enterZipcode(String zipcode) {
+        waitForElementVisible(driver, CartUI.INPUT_ZIPCODE);
+        sendKeyToElement(driver, CartUI.INPUT_ZIPCODE, zipcode);
+    }
+
+    @Step("User selects Free Shipping option")
+    public void clickFreeShip() {
+        waitForElementClickable(driver, CartUI.FREE_SHIPPING);
+        clickToElement(driver, CartUI.FREE_SHIPPING);
+    }
+
+    @Step("User clicks 'Apply Coupon'")
+    public void clickApplyCoupon() {
+        waitForElementClickable(driver, CartUI.LINK_APPLY_CODE);
+        clickToElement(driver, CartUI.LINK_APPLY_CODE);
+    }
+
+    @Step("User enters coupon code: {codeCoupon}")
+    public void enterCode(String codeCoupon) {
+        waitForElementVisible(driver, CartUI.INPUT_CODE);
+        sendKeyToElement(driver, CartUI.INPUT_CODE, codeCoupon);
+    }
+
+    @Step("User clicks 'Apply' to apply coupon code")
+    public void clickApply() {
+        waitForElementClickable(driver, CartUI.BUTTON_APPLY_CODE);
+        clickToElement(driver, CartUI.BUTTON_APPLY_CODE);
+    }
+
+    @Step("Verify coupon has been successfully applied")
+    public boolean verifyApplyCodeSuccess() {
+        waitForElementVisible(driver, CartUI.VERIFY_APPLIED_CODE);
+        return isControlDisplayed(driver, CartUI.VERIFY_APPLIED_CODE);
+    }
+
+    @Step("Verify coupon has been fail applied")
+    public boolean verifyApplyFailCoupon() {
+        waitForElementVisible(driver, CartUI.VERIFY_APPLIED_CODE_FAIL);
+        return isControlDisplayed(driver, CartUI.VERIFY_APPLIED_CODE_FAIL);
     }
 }

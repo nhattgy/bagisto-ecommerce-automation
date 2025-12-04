@@ -36,7 +36,7 @@ public class CheckoutUserTest extends BaseTest {
     public void beforeClass(String browserName, String urlUser) {
         driver = getBrowserDriver(browserName);
         this.urlUser = urlUser;
-        homePage = PageGenerator.getHomePage(driver);
+        homePage = PageGeneratorUser.getHomePage(driver);
     }
 
     @Story("UC-CHECKOUT-001: Guest user can complete checkout successfully")

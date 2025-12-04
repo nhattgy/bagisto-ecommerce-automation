@@ -23,8 +23,8 @@ public class CheckoutUserIsLogged extends BaseTest {
     @BeforeClass
     public void beforeClass(String browserName, String urlUser) {
         driver = getBrowserDriver(browserName);
-        homePage = PageGenerator.getHomePage(driver);
-        LoginBeforeTest(urlUser);
+        homePage = PageGeneratorUser.getHomePage(driver);
+        LoginUserBeforeTest(urlUser);
     }
 
     @Test

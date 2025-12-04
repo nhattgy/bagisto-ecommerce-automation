@@ -150,4 +150,11 @@ public class CheckoutPO extends BasePage {
         waitForElementVisible(driver, CheckoutUI.VERIFY_ORDER_COMPLETE_PAYPAL);
         return isControlDisplayed(driver, CheckoutUI.VERIFY_ORDER_COMPLETE_PAYPAL);
     }
+    @Step("Get Order ID from the checkout success link")
+    public String getTextIdProduct() {
+        waitForElementVisible(driver, CheckoutUI.TEXT_ID_PRODUCT);
+        String href = getAttributeValue(driver, CheckoutUI.TEXT_ID_PRODUCT, "href");
+
+        return href.substring(href.lastIndexOf("/") + 1);
+    }
 }

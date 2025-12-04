@@ -2,7 +2,7 @@ package actions.PageObjects.user;
 
 import org.openqa.selenium.WebDriver;
 
-public class PageGenerator {
+public class PageGeneratorUser {
     public static HomePagePO getHomePage(WebDriver driver) {
         return new HomePagePO(driver);
     }
@@ -25,5 +25,8 @@ public class PageGenerator {
     }
     public static OrderPO getOrder(WebDriver driver){
         return new OrderPO(driver);
+    }
+    public static ProfilePO getProfilePage(WebDriver driver){
+        return new ProfilePO(driver);
     }
 }
