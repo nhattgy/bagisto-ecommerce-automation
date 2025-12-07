@@ -24,5 +24,6 @@ public class CustomerUI {
     public static final String DROPDOWN_STATUS = "css=select[name = 'status']";
     public static final String BUTTON_SAVE = "xpath=//button[text() = ' Save ']";
     public static final String VERIFY_REVIEW_UPDATE = "xpath=//p[text() = ' Review Update Successfully']";
+    public static final String PROFILE_ADMIN = "xpath=//p[text() = '%s']/ancestor::div[contains(@class, 'row grid grid-cols-1 gap-2 md:grid-cols-[minmax(150px,_2fr)_1fr_1fr]')]//a[contains(@class, 'icon-login')]";
 
 }

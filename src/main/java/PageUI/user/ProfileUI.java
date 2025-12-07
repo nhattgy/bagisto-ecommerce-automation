@@ -12,5 +12,7 @@ public class ProfileUI {
     public static final String INPUT_NEW_PASSWORD = "css=input[name='new_password']";
     public static final String INPUT_CONFIRM_PASSWORD = "css=input[name='new_password_confirmation']";
     public static final String VERIFY_UPDATE_PASSWORD_SUCCESS = "xpath=//p[text() = ' Profile Updated Successfully']";
+    public static final String VERIFY_LOGIN_SUCCESS = "xpath=//p[text() = ' You logged in as %s']";
+    public static final String VERIFY_VALIDATE_PHONE_NUMBER = "xpath=//p[text() = 'This Phone must be a valid phone number']";
 
 }

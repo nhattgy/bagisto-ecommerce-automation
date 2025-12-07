@@ -30,4 +30,19 @@ public class GlobalConstants {
     public static final String BROWSER_AUTOMATE_KEY = "2p6RD9ak4HcSiv9QuWmD";
     public static final String BROWSER_STACK_URL = "https://" + BROWSER_USERNAME + ":" + BROWSER_AUTOMATE_KEY + "@hub-cloud.browserstack.com/wd/hub";
 
+
+    // Config Lambda Test
+    public static final String LAMBDA_USERNAME = "nhatnt56";
+    public static final String LAMBDA_AUTOMATE_KEY = "LT_lEfDY4BW7bWkMGO02yhAxgYzW6y3dcYLWaSV75PyeArReT8";
+
+    public static final String LAMBDA_URL =
+            "https://" + LAMBDA_USERNAME + ":" + LAMBDA_AUTOMATE_KEY + "@hub.lambdatest.com/wd/hub";
+
+    //Config Sauce Lab
+
+    public static final String SAUCE_USERNAME = "oauth-nhatnt56-0c579";
+    public static final String SAUCE_AUTOMATE_KEY = "fe1668da-ee52-403f-8b77-f9daccce7bde";
+    public static final String SAUCE_URL = "https://" + SAUCE_USERNAME + ":" + SAUCE_AUTOMATE_KEY +
+            "@ondemand.eu-central-1.saucelabs.com:443/wd/hub";
+
 }

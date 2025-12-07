@@ -87,7 +87,17 @@ public class AccountAdminPO extends BasePage {
     @Step("Click Logout and navigate to Authentication page")
     public AuthenticationAdminPO clickLogout() {
         waitForElementClickable(driver, AccountUI.LINK_LOGOUT);
-        clickToElement(driver, AccountUI.LINK_LOGOUT);
+        clickToElementByJS(driver, AccountUI.LINK_LOGOUT);
         return PageGeneratorAdmin.getAuthenticationAdmin(driver);
+    }
+    @Step("Admin click edit icon")
+    public void editAccountAdmin(String editAccount) {
+        waitForElementClickable(driver, AccountUI.LINK_EDIT,editAccount);
+        clickToElement(driver, AccountUI.LINK_EDIT,editAccount);
+    }
+    @Step("Verify when enter confirm password miss match")
+    public boolean verifyAccountMissMatch() {
+        waitForElementVisible(driver, AccountUI.VERIFY_ACCOUNT_MISS_MATCH);
+        return isControlDisplayed(driver, AccountUI.VERIFY_ACCOUNT_MISS_MATCH);
     }
 }

@@ -14,6 +14,8 @@ public class AccountUI {
     public static final String VERIFY_ACCOUNT_CREATED = "xpath=//p[text() = ' User created successfully.']";
     public static final String ICON_ADMIN = "css=button[class = 'flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-blue-400 text-xs font-semibold leading-6 text-white transition-all hover:bg-blue-500 focus:bg-blue-500 sm:h-9 sm:w-9 sm:text-sm']";
     public static final String LINK_LOGOUT = "xpath=//a[text() = ' Logout ']";
+    public static final String LINK_EDIT = "xpath=//div[text() = '%s']/parent::div/parent::p/parent::div//a/span[contains(@class, 'icon-edit')]";
+    public static final String VERIFY_ACCOUNT_MISS_MATCH = "xpath=//p[text() = 'The Password field confirmation does not match']";
 
 
 }

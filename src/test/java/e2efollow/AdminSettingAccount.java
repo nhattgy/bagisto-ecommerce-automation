@@ -18,6 +18,7 @@ public class AdminSettingAccount extends BaseTest {
     private AuthenticationAdminPO authenticationAdmin;
     private String urlUser, urlAdmin;
     private String name, email, password;
+    private String passwordChange = "123456!@#";
     DataHelper dataHelper = DataHelper.getDataHelper();
 
     @Parameters({"browser", "urlUser", "urlAdmin"})
@@ -32,6 +33,7 @@ public class AdminSettingAccount extends BaseTest {
         email = dataHelper.getEmailAddress();
         password = dataHelper.getPassword();
     }
+
 
     @Story("E13 - Admin creates a new admin account and the new admin can log in successfully")
     @Description("Verify that an existing admin can create a new admin account, and the newly created admin can successfully log in using the provided credentials.")
@@ -55,6 +57,43 @@ public class AdminSettingAccount extends BaseTest {
         authenticationAdmin.enterPassword(password);
         authenticationAdmin.clickSignIn();
         Assert.assertTrue(authenticationAdmin.menuDashboardIsDisplayed());
+    }
+
+    @Story("E14 - Change admin password and verify login with the updated credentials")
+    @Description("""
+            Ensure that an admin user is able to change their password. After updating the
+            password, validate that the admin can log out and log in again using the new
+            credentials without issues.
+            """)
+    @Severity(SeverityLevel.NORMAL)
+
+    @Test
+    public void E14_AdminChangePasswordAfterLogin() {
+        accountAdmin.editAccountAdmin(name);
+        accountAdmin.enterPassword(passwordChange);
+        accountAdmin.enterConfirmPassword(passwordChange);
+        accountAdmin.clickSaveUser();
+        accountAdmin.clickIconAdmin();
+        authenticationAdmin = accountAdmin.clickLogout();
+        authenticationAdmin.enterEmailAddress(email);
+        authenticationAdmin.enterPassword(passwordChange);
+        authenticationAdmin.clickSignIn();
+        Assert.assertTrue(authenticationAdmin.menuDashboardIsDisplayed());
+    }
+
+    @Story("E15 - Validate password mismatch error during admin password update")
+    @Description("""
+            Verify that when an admin attempts to update their password with mismatched
+            'Password' and 'Confirm Password' fields, the system correctly displays a
+            validation error message and prevents the update.
+            """)
+    @Severity(SeverityLevel.MINOR)
+    @Test
+    public void E15_AdminChangePasswordMissMatchPassword() {
+        accountAdmin.editAccountAdmin(name);
+        accountAdmin.enterPassword(passwordChange);
+        accountAdmin.enterConfirmPassword("1111");
+        Assert.assertTrue(accountAdmin.verifyAccountMissMatch());
     }
 
     @AfterClass

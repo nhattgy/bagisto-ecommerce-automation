@@ -1,6 +1,8 @@
 package actions.PageObjects.admin;
 
 import PageUI.admin.CustomerUI;
+import actions.PageObjects.user.PageGeneratorUser;
+import actions.PageObjects.user.ProfilePO;
 import actions.commons.BasePage;
 import io.qameta.allure.Step;
 import org.openqa.selenium.Keys;
@@ -151,5 +153,10 @@ public class CustomerAdminPO extends BasePage {
         waitForElementVisible(driver, CustomerUI.VERIFY_REVIEW_UPDATE);
         return isControlDisplayed(driver, CustomerUI.VERIFY_REVIEW_UPDATE);
     }
-
+    @Step("Click profile Admin switch to User profile")
+    public ProfilePO clickOpenProfile(String nameUser) {
+        waitForElementClickable(driver, CustomerUI.PROFILE_ADMIN, nameUser);
+        clickToElement(driver, CustomerUI.PROFILE_ADMIN,nameUser);
+        return PageGeneratorUser.getProfilePage(driver);
+    }
 }

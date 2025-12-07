@@ -9,14 +9,13 @@ import actions.PageObjects.user.HomePagePO;
 import actions.PageObjects.user.LoginPagePO;
 import actions.PageObjects.user.PageGeneratorUser;
 import actions.factoryBrowser.*;
-import actions.factoryEnvironment.BrowserStackFactory;
-import actions.factoryEnvironment.EnvironmentList;
-import actions.factoryEnvironment.LocalFactory;
+import actions.factoryEnvironment.*;
 import org.openqa.selenium.MutableCapabilities;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.safari.SafariDriver;
 import org.slf4j.Logger;
@@ -71,24 +70,65 @@ public class BaseTest extends BasePage {
         return driver;
     }
 
-    protected WebDriver getBrowserDriver(String environment, String osName, String osVersion, String browserName, String browserVersion) {
+    protected WebDriver getBrowserDriver(String environment, String osName,
+                                         String osVersion, String browserName,
+                                         String browserVersion) {
 
         EnvironmentList environmentList = EnvironmentList.valueOf(environment.toUpperCase());
+
         switch (environmentList) {
+
             case LOCAL:
                 driver = new LocalFactory(browserName).createDriver();
                 break;
 
             case GRID_BROWSERSTACK:
-                driver = new BrowserStackFactory(browserName, browserVersion, osName, osVersion).createDriver();
+                driver = new BrowserStackFactory(osName, osVersion, browserName, browserVersion).createDriver();
                 break;
 
+            case LAMBDA_TEST:
+                driver = new LambdaTestFactory(osName, browserName, browserVersion).createDriver();
+                break;
+            case SAUCE_LAB:
+                driver = new SauceLabFactory(osName, osVersion, browserName, browserVersion).createDriver();
+                break;
             default:
-                throw new RuntimeException("Not support Environment");
+                throw new RuntimeException("Environment is not supported: " + environment);
+        }
+        return driver;
+    }
+
+    public WebDriver getBrowserDocker(String browserName) {
+        BrowserList browser = BrowserList.valueOf(browserName.toUpperCase());
+        DesiredCapabilities capability = new DesiredCapabilities();
+
+
+        switch (browser) {
+            case CHROME:
+                capability.setBrowserName("chrome");
+                break;
+            case FIREFOX:
+                capability.setBrowserName("firefox");
+                break;
+            case EDGE:
+                capability.setBrowserName("MicrosoftEdge");
+                break;
+            default:
+                throw new RuntimeException("Browser not support");
         }
 
+        try {
+            driver = new RemoteWebDriver(
+                    new URL(String.format("http://localhost:4444")),
+                    capability
+            );
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
         driver.manage().window().maximize();
         return driver;
+
+
     }
 
     public void LoginUserBeforeTest(String urlUser) {

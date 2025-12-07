@@ -69,4 +69,14 @@ public class ProfilePO extends BasePage {
         waitForElementVisible(driver, ProfileUI.VERIFY_UPDATE_PASSWORD_SUCCESS);
         return isControlDisplayed(driver, ProfileUI.VERIFY_UPDATE_PASSWORD_SUCCESS);
     }
+    @Step("Verify login success")
+    public boolean verifyLoginSuccessFully(String name) {
+        waitForElementVisible(driver, ProfileUI.VERIFY_LOGIN_SUCCESS,name);
+        return isControlDisplayed(driver, ProfileUI.VERIFY_LOGIN_SUCCESS,name);
+    }
+    @Step("Verify Validate Phone Number")
+    public boolean verifyValidatePhoneNumber() {
+        waitForElementVisible(driver, ProfileUI.VERIFY_VALIDATE_PHONE_NUMBER);
+        return isControlDisplayed(driver, ProfileUI.VERIFY_VALIDATE_PHONE_NUMBER);
+    }
 }
