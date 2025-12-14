@@ -181,18 +181,19 @@ public class BasePage {
         return new Select(getElement(driver, locator)).isMultiple();
     }
 
-    public void selectItemInCustomDropdown(WebDriver driver, String parentLocator, String childItemLocator, String expectedItem) {
-        // Click vào dropdown cha
+public void selectItemInCustomDropdown(WebDriver driver,
+                                           String parentLocator,
+                                           String listItemLocator,
+                                           String expectedItem) {
+
         getElement(driver, parentLocator).click();
-        sleepInSeconds(2);
 
-        // Chờ các item con xuất hiện
-        List<WebElement> allItems = new WebDriverWait(driver, Duration.ofSeconds(GlobalConstants.SHORT_TIMEOUT))
-                .until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath(childItemLocator)));
+        By listItemBy = getLocator(listItemLocator);
 
-        sleepInSeconds(2);
+        List<WebElement> allItems = new WebDriverWait(driver,
+                Duration.ofSeconds(GlobalConstants.SHORT_TIME_OUT))
+                .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(listItemBy));
 
-        // Duyệt qua tất cả item và chọn item mong muốn
         for (WebElement item : allItems) {
             if (item.getText().trim().equals(expectedItem)) {
                 item.click();
