@@ -181,25 +181,15 @@ public class BasePage {
         return new Select(getElement(driver, locator)).isMultiple();
     }
 
-public void selectItemInCustomDropdown(WebDriver driver,
+ public void selectItemInCustomDropdown(WebDriver driver,
                                            String parentLocator,
-                                           String listItemLocator,
-                                           String expectedItem) {
-
-        getElement(driver, parentLocator).click();
-
-        By listItemBy = getLocator(listItemLocator);
-
-        List<WebElement> allItems = new WebDriverWait(driver,
-                Duration.ofSeconds(GlobalConstants.SHORT_TIME_OUT))
-                .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(listItemBy));
-
-        for (WebElement item : allItems) {
-            if (item.getText().trim().equals(expectedItem)) {
-                item.click();
-                break;
-            }
-        }
+                                           String expectedItemLocator) {
+        
+        waitForElementClickable(driver, parentLocator);
+        clickToElement(driver, parentLocator);
+       
+        waitForElementClickable(driver, expectedItemLocator);
+        clickToElement(driver, expectedItemLocator);
     }
 
     public void sleepInSeconds(int timeout) {
