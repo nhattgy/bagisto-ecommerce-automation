@@ -18,7 +18,7 @@ public class AccountAdminPO extends BasePage {
         clickToElement(driver, AccountUI.LINK_SETTING);
     }
 
-    @Step("Click Users link in Settings")
+    @Step("Click Users link in Setting")
     public void clickLinkUsers() {
         waitForElementClickable(driver, AccountUI.LINK_USER);
         clickToElement(driver, AccountUI.LINK_USER);
