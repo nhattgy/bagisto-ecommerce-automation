@@ -261,8 +261,47 @@ This command will start a local Allure server and open the interactive report in
 
 ### 9. Jenkins Integration (Optional)
 
-Typical Jenkins pipeline step:
+Pipeline step:
 ```bash
-mvn clean test
-allure generate allure-results --clean -o allure-report
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout') {
+            steps {
+                git branch: 'master',
+                    url: 'https://github.com/nhattgy/bagisto-ecommerce-automation.git',
+                    credentialsId: 'Github_Token'
+            }
+        }
+
+        stage('Prepare Allure History') {
+            steps {
+                script {
+                    if (fileExists('allure-report\\history')) {
+                        bat 'xcopy /E /I /Y allure-report\\history allure-results\\history'
+                    } else {
+                        echo 'No previous Allure history found'
+                    }
+                }
+            }
+        }
+
+        stage('Run Test') {
+            steps {
+                bat 'mvn clean test'
+            }
+        }
+    }
+
+    post {
+        always {
+            allure([
+                includeProperties: false,
+                results: [[path: 'allure-results']]
+            ])
+        }
+    }
+}
 ```
+
