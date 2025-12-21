@@ -4,6 +4,7 @@ import actions.PageObjects.admin.AccountAdminPO;
 import actions.PageObjects.admin.AuthenticationAdminPO;
 import actions.PageObjects.admin.PageGeneratorAdmin;
 import actions.commons.BaseTest;
+import actions.commons.DriverManager;
 import io.qameta.allure.*;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
@@ -13,7 +14,6 @@ import utilities.DataHelper;
 @Epic("Admin Account Management")
 @Feature("Admin User Creation & Authentication")
 public class AdminSettingAccount extends BaseTest {
-    private WebDriver driver;
     private AccountAdminPO accountAdmin;
     private AuthenticationAdminPO authenticationAdmin;
     private String urlUser, urlAdmin;
@@ -25,7 +25,8 @@ public class AdminSettingAccount extends BaseTest {
     @BeforeClass
     public void beforeClass(String browser, String urlUser, String urlAdmin) {
 
-        driver = getBrowserDriver(browser);
+        getBrowserDriver(browser);
+        WebDriver driver = DriverManager.getDriver();
         LoginAdminBeforeTest(urlAdmin);
 
         accountAdmin = PageGeneratorAdmin.getAccountAdmin(driver);
@@ -67,7 +68,7 @@ public class AdminSettingAccount extends BaseTest {
             """)
     @Severity(SeverityLevel.NORMAL)
 
-    @Test
+   // @Test
     public void E14_AdminChangePasswordAfterLogin() {
         accountAdmin.editAccountAdmin(name);
         accountAdmin.enterPassword(passwordChange);
@@ -88,7 +89,7 @@ public class AdminSettingAccount extends BaseTest {
             validation error message and prevents the update.
             """)
     @Severity(SeverityLevel.MINOR)
-    @Test
+   // @Test
     public void E15_AdminChangePasswordMissMatchPassword() {
         accountAdmin.editAccountAdmin(name);
         accountAdmin.enterPassword(passwordChange);

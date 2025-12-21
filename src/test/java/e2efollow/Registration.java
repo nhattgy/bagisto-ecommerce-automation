@@ -8,6 +8,7 @@ import actions.PageObjects.user.AuthenticationPO;
 import actions.PageObjects.user.HomePagePO;
 import actions.PageObjects.user.PageGeneratorUser;
 import actions.commons.BaseTest;
+import actions.commons.DriverManager;
 import actions.commons.GlobalConstants;
 import io.qameta.allure.*;
 import org.openqa.selenium.WebDriver;
@@ -17,10 +18,10 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import utilities.DataHelper;
+
 @Epic("E2E User Registration Flow")
 @Feature("User creates account and admin verifies customer")
 public class Registration extends BaseTest {
-    private WebDriver driver;
     private String urlUser, urlAdmin;
     private HomePagePO homePage;
     private AuthenticationPO authentication;
@@ -36,18 +37,21 @@ public class Registration extends BaseTest {
     @Parameters({"browser", "urlUser", "urlAdmin"})
     @BeforeClass
     public void beforeClass(String browserName, String urlUser, String urlAdmin) {
-        driver = getBrowserDriver(browserName);
+        getBrowserDriver(browserName);
+        WebDriver driver = DriverManager.getDriver();
         this.urlUser = urlUser;
         this.urlAdmin = urlAdmin;
         homePage = PageGeneratorUser.getHomePage(driver);
         authenticationAdmin = PageGeneratorAdmin.getAuthenticationAdmin(driver);
         customerAdmin = PageGeneratorAdmin.getCustomerAdmin(driver);
     }
+
     @Story("User registers a new account successfully")
     @Description("Verify that a user can register on frontend and the admin can search & validate the new customer in the Admin Dashboard.")
     @Severity(SeverityLevel.CRITICAL)
     @Test
     public void E01_UserRegisterAdminCheckUser() {
+        WebDriver driver = DriverManager.getDriver();
         homePage.openPageUrl(driver, urlUser);
         authentication = homePage.clickIconUser();
         authentication.clickLinkSignUp();

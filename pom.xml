@@ -15,19 +15,18 @@
     </properties>
 
     <dependencies>
-        <!-- Selenium -->
+        <!-- Selenium - UPDATED to 4.27.0 -->
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
-            <version>4.23.0</version>
+            <version>4.27.0</version>
         </dependency>
 
-        <!-- TestNG -->
+        <!-- TestNG - FIXED duplicate, kept version 7.11.0 -->
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
             <version>7.11.0</version>
-            <scope>test</scope>
         </dependency>
 
         <!-- Allure -->
@@ -36,6 +35,7 @@
             <artifactId>allure-testng</artifactId>
             <version>2.29.0</version>
         </dependency>
+
         <dependency>
             <groupId>org.apache.pdfbox</groupId>
             <artifactId>pdfbox</artifactId>
@@ -48,17 +48,19 @@
             <artifactId>aspectjweaver</artifactId>
             <version>1.9.22</version>
         </dependency>
-        <dependency>
-            <groupId>org.testng</groupId>
-            <artifactId>testng</artifactId>
-            <version>7.11.0</version>
-            <scope>compile</scope>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/com.github.javafaker/javafaker -->
+
+        <!-- JavaFaker -->
         <dependency>
             <groupId>com.github.javafaker</groupId>
             <artifactId>javafaker</artifactId>
             <version>1.0.2</version>
+        </dependency>
+
+        <!-- SLF4J - ADDED to fix warning -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>2.0.9</version>
         </dependency>
     </dependencies>
 

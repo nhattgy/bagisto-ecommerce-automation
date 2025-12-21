@@ -81,4 +81,5 @@ public class HomePagePO extends BasePage {
         clickToElement(driver, HomePageUI.LINK_PROFILE_PAGE);
         return PageGeneratorUser.getProfilePage(driver);
     }
+
 }

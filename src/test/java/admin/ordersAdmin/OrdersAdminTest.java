@@ -4,6 +4,7 @@ import actions.PageObjects.admin.OrderAdminPO;
 import actions.PageObjects.admin.PageGeneratorAdmin;
 import actions.PageObjects.admin.SalesPO;
 import actions.commons.BaseTest;
+import actions.commons.DriverManager;
 import io.qameta.allure.*;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
@@ -15,14 +16,14 @@ import org.testng.annotations.Test;
 @Epic("Admin - Sales Management")
 @Feature("Order Management")
 public class OrdersAdminTest extends BaseTest {
-    private WebDriver driver;
     private SalesPO sales;
     private OrderAdminPO orders;
 
     @Parameters({"browser", "urlAdmin"})
     @BeforeClass
     public void beforeClass(String browserName, String urlAdmin) {
-        driver = getBrowserDriver(browserName);
+        getBrowserDriver(browserName);
+        WebDriver driver = DriverManager.getDriver();
         LoginAdminBeforeTest(urlAdmin);
         sales = PageGeneratorAdmin.getSalesAdmin(driver);
     }
@@ -39,6 +40,7 @@ public class OrdersAdminTest extends BaseTest {
     @Severity(SeverityLevel.NORMAL)
     @Test
     public void A17_ViewDetailOrder(){
+        orders.enterSearch("33");
         orders.clickIconDetailOrder("#33");
         Assert.assertTrue(orders.verifyOderDetail());
     }

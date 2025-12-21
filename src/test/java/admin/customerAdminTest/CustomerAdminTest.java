@@ -3,6 +3,7 @@ package admin.customerAdminTest;
 import actions.PageObjects.admin.CustomerAdminPO;
 import actions.PageObjects.admin.PageGeneratorAdmin;
 import actions.commons.BaseTest;
+import actions.commons.DriverManager;
 import io.qameta.allure.*;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
@@ -14,13 +15,13 @@ import utilities.DataHelper;
 @Epic("Admin - Customer Management")
 @Feature("Create and Edit Customer")
 public class CustomerAdminTest extends BaseTest {
-    private WebDriver driver;
     private CustomerAdminPO customerAdmin;
     private String firstName,lastname,email;
     @Parameters({"browser","urlAdmin"})
     @BeforeClass
     public void beforeClass(String browserName, String urlAdmin){
-        driver = getBrowserDriver(browserName);
+        getBrowserDriver(browserName);
+        WebDriver driver = DriverManager.getDriver();
         LoginAdminBeforeTest(urlAdmin);
         customerAdmin = PageGeneratorAdmin.getCustomerAdmin(driver);
         DataHelper dataHelper = DataHelper.getDataHelper();

@@ -327,7 +327,10 @@ public class BasePage {
     public void scrollToElement(WebDriver driver, String locator) {
         new Actions(driver).scrollToElement(getElement(driver, locator)).perform();
     }
-
+    public void scrollToElement(WebDriver driver, String locator, String... dynamicValues) {
+        WebElement element = getElement(driver, castParameter(locator, dynamicValues));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", element);
+    }
     public void sendKeyboardToElement(WebDriver driver, String locator, Keys keys) {
         WebElement element = getElement(driver, locator);
         new Actions(driver).sendKeys(element, keys).perform();

@@ -7,6 +7,7 @@ import actions.PageObjects.user.HomePagePO;
 import actions.PageObjects.user.PageGeneratorUser;
 import actions.PageObjects.user.ProductPO;
 import actions.commons.BaseTest;
+import actions.commons.DriverManager;
 import io.qameta.allure.*;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
@@ -19,7 +20,6 @@ import utilities.DataHelper;
 @Epic("Promotion & Discount Management")
 @Feature("Coupon Creation & Application Flow")
 public class AdminCreateCouponUserApplies extends BaseTest {
-    private WebDriver driver;
     private String urlUser, urlAdmin;
     private MarketingPO marketing;
     private HomePagePO homePage;
@@ -39,7 +39,8 @@ public class AdminCreateCouponUserApplies extends BaseTest {
     @Parameters({"browser", "urlUser", "urlAdmin"})
     @BeforeClass
     public void beforeClass(String browserName, String urlUser, String urlAdmin) {
-        driver = getBrowserDriver(browserName);
+        getBrowserDriver(browserName);
+        WebDriver driver = DriverManager.getDriver();
         this.urlUser = urlUser;
         this.urlAdmin = urlAdmin;
         marketing = PageGeneratorAdmin.getMarketingAdmin(driver);
@@ -58,6 +59,7 @@ public class AdminCreateCouponUserApplies extends BaseTest {
     @Severity(SeverityLevel.CRITICAL)
     @Test()
     public void E09_AdminCreateCouponUserApplies() {
+        WebDriver driver = DriverManager.getDriver();
         marketing.clickLinkMarketing();
         marketing.clickCartRules();
         marketing.clickCreateCartRule();
@@ -108,6 +110,7 @@ public class AdminCreateCouponUserApplies extends BaseTest {
     @Severity(SeverityLevel.NORMAL)
     @Test
     public void E10_AdminDisablesCouponUserCannotUse() {
+        WebDriver driver = DriverManager.getDriver();
         cart.openPageUrl(driver, urlAdmin);
         marketing.clickLinkMarketing();
         marketing.clickCartRules();

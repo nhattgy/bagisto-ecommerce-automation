@@ -4,6 +4,7 @@ import actions.PageObjects.user.HomePagePO;
 import actions.PageObjects.user.PageGeneratorUser;
 import actions.PageObjects.user.ProductPO;
 import actions.commons.BaseTest;
+import actions.commons.DriverManager;
 import io.qameta.allure.*;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
@@ -11,26 +12,31 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
+
 @Epic("User Module")
 @Feature("Product Search")
 public class ProductUserTest extends BaseTest {
-    private WebDriver driver;
     private HomePagePO homePage;
     private ProductPO product;
     private String urlUser;
-    @Parameters({"browser","urlUser"})
+
+    @Parameters({"browser", "urlUser"})
     @BeforeClass
-    public void beforeClass(String browserName, String urlUser){
-        driver = getBrowserDriver(browserName);
+    public void beforeClass(String browserName, String urlUser) {
+        getBrowserDriver(browserName);
+        WebDriver driver = DriverManager.getDriver();
         this.urlUser = urlUser;
         homePage = PageGeneratorUser.getHomePage(driver);
     }
+
     @Story("Product Search Functionality")
     @Description("Verify that user can search for products by keyword and see correct search results.")
     @Severity(SeverityLevel.TRIVIAL)
     @Test
     public void U05_ProductSearch() {
+        WebDriver driver = DriverManager.getDriver();
         homePage.openPageUrl(driver, urlUser);
+        homePage.acceptCookie();
         product = homePage.searchProduct("shirt");
         Assert.assertEquals(product.verifyTextResults(), "These are results for : shirt");
     }
@@ -46,6 +52,7 @@ public class ProductUserTest extends BaseTest {
         homePage.clickLinkMenuChildProduct("Boys Clothing");
         Assert.assertEquals(product.verifyQuantityResultSearch(), 9);
     }
+
     @Story("Product Detail")
     @Description("Verify that user can open product detail page successfully and 'Buy Now' button is visible.")
     @Severity(SeverityLevel.CRITICAL)
@@ -61,7 +68,7 @@ public class ProductUserTest extends BaseTest {
 
 
     @AfterClass
-    public void afterClass(){
+    public void afterClass() {
         closeBrowserDriver();
     }
 }

@@ -6,6 +6,7 @@ import actions.PageObjects.user.HomePagePO;
 import actions.PageObjects.user.PageGeneratorUser;
 import actions.PageObjects.user.ProductPO;
 import actions.commons.BaseTest;
+import actions.commons.DriverManager;
 import io.qameta.allure.*;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
@@ -14,20 +15,22 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import utilities.DataHelper;
+
 @Epic("Product Review Management")
 @Feature("User Review Submission and Admin Moderation")
 public class UserSubmitReviewAdminCheck extends BaseTest {
-    private WebDriver driver;
     private HomePagePO homePage;
     private ProductPO product;
     private CustomerAdminPO customerAdmin;
     private String title, comment;
-    private String urlUser,urlAdmin;
+    private String urlUser, urlAdmin;
     DataHelper dataHelper = DataHelper.getDataHelper();
+
     @Parameters({"browser", "urlUser", "urlAdmin"})
     @BeforeClass
     public void beforeClass(String browserName, String urlUser, String urlAdmin) {
-        driver = getBrowserDriver(browserName);
+        getBrowserDriver(browserName);
+        WebDriver driver = DriverManager.getDriver();
         homePage = PageGeneratorUser.getHomePage(driver);
         customerAdmin = PageGeneratorAdmin.getCustomerAdmin(driver);
         this.urlUser = urlUser;
@@ -36,11 +39,13 @@ public class UserSubmitReviewAdminCheck extends BaseTest {
         title = dataHelper.randomMetaDescription();
         comment = dataHelper.randomLongDescription();
     }
+
     @Story("User submits a review and Admin approves it")
     @Severity(SeverityLevel.CRITICAL)
-    @Description ("Verify that an Admin can approve a user-submitted product review and the review becomes visible to the user")
+    @Description("Verify that an Admin can approve a user-submitted product review and the review becomes visible to the user")
     @Test
-    public void E11_UserSubmitReviewAdminApproves(){
+    public void E11_UserSubmitReviewAdminApproves() {
+        WebDriver driver = DriverManager.getDriver();
         homePage.hoverLinkMenuParentProduct("Woman");
         product = homePage.clickLinkMenuChildProduct("Casual Wear");
         product.clickOnProductByName("Blossom Breeze Cotton Printed Short Skirt");
@@ -70,11 +75,13 @@ public class UserSubmitReviewAdminCheck extends BaseTest {
         product.scrollToBottomPageByJS(driver);
         Assert.assertTrue(product.verifyReviewIsDisplayed(title));
     }
+
     @Story("Admin rejects a user review and User should not see the review")
     @Severity(SeverityLevel.NORMAL)
     @Description("Verify that when Admin rejects a review, the review is not visible to the userx")
     @Test
-    public void E12_AdminRejectReviewUserCheck(){
+    public void E12_AdminRejectReviewUserCheck() {
+        WebDriver driver = DriverManager.getDriver();
         product.openPageUrl(driver, urlAdmin);
         customerAdmin.clickLinkCustomer();
         customerAdmin.clickLinkReview();
@@ -92,8 +99,9 @@ public class UserSubmitReviewAdminCheck extends BaseTest {
         product.sleepInSeconds(1);
         Assert.assertTrue(product.verifyReviewIsNotDisplayed(title));
     }
+
     @AfterClass
-    public void afterClass(){
+    public void afterClass() {
         closeBrowserDriver();
     }
 }

@@ -2,6 +2,7 @@ package user.checkoutUser;
 
 import actions.PageObjects.user.*;
 import actions.commons.BaseTest;
+import actions.commons.DriverManager;
 import io.qameta.allure.*;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
@@ -13,7 +14,6 @@ import org.testng.annotations.Test;
 @Epic("Checkout Functionality")
 @Feature("Checkout as Logged-in User")
 public class CheckoutUserIsLogged extends BaseTest {
-    private WebDriver driver;
     private HomePagePO homePage;
     private ProductPO product;
     private CartPO cart;
@@ -22,7 +22,8 @@ public class CheckoutUserIsLogged extends BaseTest {
     @Parameters({"browser", "urlUser"})
     @BeforeClass
     public void beforeClass(String browserName, String urlUser) {
-        driver = getBrowserDriver(browserName);
+        getBrowserDriver(browserName);
+        WebDriver driver = DriverManager.getDriver();
         homePage = PageGeneratorUser.getHomePage(driver);
         LoginUserBeforeTest(urlUser);
     }

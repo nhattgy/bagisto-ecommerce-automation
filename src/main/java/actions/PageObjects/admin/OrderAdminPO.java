@@ -87,4 +87,5 @@ public class OrderAdminPO extends BasePage {
         Assert.assertTrue(pdfText.contains("$24.99"));
     }
 
+
 }

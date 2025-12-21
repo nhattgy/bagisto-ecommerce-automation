@@ -35,7 +35,7 @@ public class BaseTest extends BasePage {
     private static final Logger log = LoggerFactory.getLogger(BaseTest.class);
 
     public WebDriver getDriver() {
-        return driver;
+        return DriverManager.getDriver();
     }
 
     protected WebDriver getBrowserDriver(String browserName) {
@@ -66,7 +66,7 @@ public class BaseTest extends BasePage {
         }
 
         driver.manage().window().maximize();
-
+        DriverManager.setDriver(driver);
         return driver;
     }
 
@@ -95,6 +95,7 @@ public class BaseTest extends BasePage {
             default:
                 throw new RuntimeException("Environment is not supported: " + environment);
         }
+        DriverManager.setDriver(driver);
         return driver;
     }
 
@@ -126,12 +127,18 @@ public class BaseTest extends BasePage {
             e.printStackTrace();
         }
         driver.manage().window().maximize();
+        DriverManager.setDriver(driver);
         return driver;
 
 
     }
-
+    public void ClickAcceptCookie(){
+        HomePagePO homePagePO;
+        homePagePO = PageGeneratorUser.getHomePage(driver);
+        homePagePO.acceptCookie();
+    }
     public void LoginUserBeforeTest(String urlUser) {
+        WebDriver driver = DriverManager.getDriver();
         HomePagePO homePage;
         LoginPagePO loginPage;
         AuthenticationPO authentication;
@@ -142,12 +149,13 @@ public class BaseTest extends BasePage {
         homePage.acceptCookie();
         homePage.clickIconUser();
         authentication.clickLinkSignIn();
-        loginPage.enterEmail("john@example.com");
+        loginPage.enterEmail("tuannhat21@gmail.com");
         loginPage.enterPassword("demo123");
         loginPage.clickSignIn();
     }
 
     public void LoginAdminBeforeTest(String urlAdmin) {
+        WebDriver driver = DriverManager.getDriver();
         AuthenticationAdminPO authenticationAdmin;
         DashboardAdminPO dashboardAdmin;
         authenticationAdmin = PageGeneratorAdmin.getAuthenticationAdmin(driver);
@@ -159,6 +167,7 @@ public class BaseTest extends BasePage {
     }
 
     protected void closeBrowserDriver() {
+        WebDriver driver = DriverManager.getDriver();
         String cmd = null;
         try {
             String osName = System.getProperty("os.name").toLowerCase();
@@ -192,7 +201,7 @@ public class BaseTest extends BasePage {
 
             if (driver != null) {
                 driver.manage().deleteAllCookies();
-                driver.quit();
+                DriverManager.quitDriver();
             }
         } catch (Exception e) {
             log.info(e.getMessage());
@@ -225,12 +234,12 @@ public class BaseTest extends BasePage {
                     if (file.isFile() && !file.getName().equals("environment.properties")) {
                         boolean deleted = file.delete();
                         if (!deleted) {
-                            System.out.println("⚠️ Không thể xóa file: " + file.getAbsolutePath());
+                            System.out.println("Không thể xóa file: " + file.getAbsolutePath());
                         }
                     }
                 }
             } else {
-                System.out.println("⚠️ Không tìm thấy file trong thư mục: " + pathFolderDownload);
+                System.out.println("Không tìm thấy file trong thư mục: " + pathFolderDownload);
             }
         } catch (Exception e) {
             e.printStackTrace();

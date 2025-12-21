@@ -10,4 +10,5 @@ public class HomePageUI {
     public static final String ACCEPT_BUTTON_COOKIE = "xpath=//button[text() = ' Accept ']";
     public static final String LINK_ORDER_PAGE = "xpath=//a[text() = ' Orders ']";
     public static final String LINK_PROFILE_PAGE = "xpath=//a[text() = ' Profile ']";
+
 }

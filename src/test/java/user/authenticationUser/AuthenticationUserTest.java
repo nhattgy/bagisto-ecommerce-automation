@@ -5,6 +5,7 @@ import actions.PageObjects.user.HomePagePO;
 import actions.PageObjects.user.LoginPagePO;
 import actions.PageObjects.user.PageGeneratorUser;
 import actions.commons.BaseTest;
+import actions.commons.DriverManager;
 import io.qameta.allure.*;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
@@ -17,7 +18,6 @@ import utilities.DataHelper;
 @Epic("User Module")
 @Feature("Authentication")
 public class AuthenticationUserTest extends BaseTest {
-    private WebDriver driver;
     private String urlUser;
     private HomePagePO homePage;
     private AuthenticationPO authentication;
@@ -31,7 +31,8 @@ public class AuthenticationUserTest extends BaseTest {
     @Parameters({"browser", "urlUser"})
     @BeforeClass
     public void beforeClass(String browserName, String urlUser) {
-        driver = getBrowserDriver(browserName);
+        getBrowserDriver(browserName);
+        WebDriver driver = DriverManager.getDriver();
         this.urlUser = urlUser;
         homePage = PageGeneratorUser.getHomePage(driver);
 
@@ -42,7 +43,9 @@ public class AuthenticationUserTest extends BaseTest {
     @Severity(SeverityLevel.CRITICAL)
     @Test
     public void U01_RegisterWithValidData() {
+        WebDriver driver = DriverManager.getDriver();
         homePage.openPageUrl(driver, urlUser);
+        homePage.acceptCookie();
         authentication = homePage.clickIconUser();
         authentication.clickLinkSignUp();
         authentication.enterFirstName(FirstName);
@@ -61,6 +64,7 @@ public class AuthenticationUserTest extends BaseTest {
     @Severity(SeverityLevel.NORMAL)
     @Test
     public void U02_RegisterWithExistingEmail() {
+        WebDriver driver = DriverManager.getDriver();
         homePage.openPageUrl(driver, urlUser);
         authentication = homePage.clickIconUser();
         authentication.clickLinkSignUp();
@@ -81,6 +85,7 @@ public class AuthenticationUserTest extends BaseTest {
     @Severity(SeverityLevel.CRITICAL)
     @Test
     public void U03_LoginWithValidCredentials() {
+        WebDriver driver = DriverManager.getDriver();
         homePage.openPageUrl(driver, urlUser);
         homePage.clickIconUser();
         loginPage = authentication.clickLinkSignIn();

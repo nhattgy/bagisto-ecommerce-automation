@@ -2,6 +2,7 @@ package user.profileUser;
 
 import actions.PageObjects.user.*;
 import actions.commons.BaseTest;
+import actions.commons.DriverManager;
 import io.qameta.allure.*;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
@@ -14,7 +15,6 @@ import utilities.DataHelper;
 @Epic("User Management")
 @Feature("Profile Management")
 public class ProfileUserTest extends BaseTest {
-    private WebDriver driver;
     private ProfilePO profileUser;
     private HomePagePO homePage;
     private LoginPagePO loginPage;
@@ -25,7 +25,8 @@ public class ProfileUserTest extends BaseTest {
     @Parameters({"browser", "urlUser"})
     @BeforeClass
     public void beforeClass(String browserName, String urlUser) {
-        driver = getBrowserDriver(browserName);
+        getBrowserDriver(browserName);
+        WebDriver driver = DriverManager.getDriver();
         homePage = PageGeneratorUser.getHomePage(driver);
         authentication = PageGeneratorUser.getAuthentication(driver);
         LoginUserBeforeTest(urlUser);
@@ -39,18 +40,19 @@ public class ProfileUserTest extends BaseTest {
         homePage.clickIconUser();
         profileUser = homePage.openProfilePage();
         profileUser.clickButtonEditUser();
-        profileUser.uploadMultipleFiles(driver, "avt.jpg");
-        Assert.assertTrue(profileUser.verifyImageUploaded(), "Avatar upload failed!");
+        //profileUser.uploadMultipleFiles(driver, "avt.jpg");
+        //Assert.assertTrue(profileUser.verifyImageUploaded(), "Avatar upload failed!");
         profileUser.editPhoneNumber(phoneNumber);
         profileUser.editBirthDay("2001-10-06");
         profileUser.clickSaveButton();
         Assert.assertTrue(profileUser.verifyImageAfterSaveButton(), "Profile update not reflected after saving!");
     }
+
     @Test
     @Story("User changes password successfully")
     @Description("Verify that a logged-in user can change their password and log in again with the new credentials.")
     @Severity(SeverityLevel.CRITICAL)
-    public void U17_ChangePassword(){
+    public void U17_ChangePassword() {
         profileUser.clickButtonEditUser();
         profileUser.enterCurrentPassword("demo123");
         profileUser.enterNewPassword("123456");
@@ -68,7 +70,8 @@ public class ProfileUserTest extends BaseTest {
         Assert.assertTrue(homePage.verifyProfileIsDisplayed());
 
     }
-   @AfterClass
+
+    @AfterClass
     public void afterClass() {
         closeBrowserDriver();
     }

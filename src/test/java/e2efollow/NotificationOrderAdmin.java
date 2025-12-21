@@ -3,6 +3,7 @@ package e2efollow;
 import actions.PageObjects.admin.*;
 import actions.PageObjects.user.*;
 import actions.commons.BaseTest;
+import actions.commons.DriverManager;
 import actions.commons.GlobalConstants;
 import io.qameta.allure.*;
 import org.openqa.selenium.WebDriver;
@@ -11,10 +12,10 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
+
 @Epic("Order Management & Admin Notification System")
 @Feature("End-to-End Order Synchronization Between User and Admin Dashboard")
 public class NotificationOrderAdmin extends BaseTest {
-    private WebDriver driver;
     private String urlUser;
     private HomePagePO homePage;
     private ProductPO product;
@@ -27,10 +28,12 @@ public class NotificationOrderAdmin extends BaseTest {
     private DashboardAdminPO dashboardAdmin;
     private SalesPO sales;
     String numberID;
-    @Parameters({"browser","urlUser","urlAdmin"})
+
+    @Parameters({"browser", "urlUser", "urlAdmin"})
     @BeforeClass
-    public void beforeClass(String browserName, String urlUser, String urlAdmin){
-        driver = getBrowserDriver(browserName);
+    public void beforeClass(String browserName, String urlUser, String urlAdmin) {
+        getBrowserDriver(browserName);
+        WebDriver driver = DriverManager.getDriver();
         this.urlUser = urlUser;
         this.urlAdmin = urlAdmin;
         homePage = PageGeneratorUser.getHomePage(driver);
@@ -40,11 +43,13 @@ public class NotificationOrderAdmin extends BaseTest {
         orderAdmin = PageGeneratorAdmin.getOrdersAdmin(driver);
         LoginUserBeforeTest(urlUser);
     }
+
     @Story("User places order → Admin sees new order notification")
     @Severity(SeverityLevel.NORMAL)
     @Description("Verify that when a user completes checkout, the Admin dashboard displays a notification containing the correct order ID.")
     @Test
-    public void E06_UserCheckoutAdminSeeNotification(){
+    public void E06_UserCheckoutAdminSeeNotification() {
+        WebDriver driver = DriverManager.getDriver();
         homePage.hoverLinkMenuParentProduct("Woman");
         product = homePage.clickLinkMenuChildProduct("Casual Wear");
         product.clickOnProductByName("Blossom Breeze Cotton Printed Short Skirt");
@@ -70,15 +75,17 @@ public class NotificationOrderAdmin extends BaseTest {
         authenticationAdmin.clickSignIn();
         Assert.assertTrue(authenticationAdmin.menuDashboardIsDisplayed());
         dashboardAdmin.openIconNotification();
-        Assert.assertTrue(dashboardAdmin.verifyIdProductIsDisplayed("#"+numberID));
+        Assert.assertTrue(dashboardAdmin.verifyIdProductIsDisplayed("#" + numberID));
         dashboardAdmin.sleepInSeconds(3);
     }
+
     @Story("User places order → Admin receives a real-time notification")
     @Description("Validate that after a user completes the checkout flow, the Admin dashboard displays an accurate real-time notification containing the generated order ID.")
     @Severity(SeverityLevel.CRITICAL)
     @Test
-    public void E07_AdminUpdateStatusUserSeeChange(){
-        dashboardAdmin.clickOrder("#"+numberID);
+    public void E07_AdminUpdateStatusUserSeeChange() {
+        WebDriver driver = DriverManager.getDriver();
+        dashboardAdmin.clickOrder("#" + numberID);
         orderAdmin.clickStatusShip();
         orderAdmin.selectSource(" Default ");
         orderAdmin.clickCreateShipment();
@@ -88,22 +95,25 @@ public class NotificationOrderAdmin extends BaseTest {
         order = homePage.clickOrderPage();
         Assert.assertTrue(order.verifyOrderIDChangeStatus(numberID));
     }
+
     @Story("Admin generates invoice → Downloads PDF successfully")
     @Description("Verify that the Admin can create an invoice for an order and download the corresponding PDF file from the dashboard.")
     @Severity(SeverityLevel.NORMAL)
     @Test
-    public void E08_AdminGenerateInvoiceAndDownload(){
+    public void E08_AdminGenerateInvoiceAndDownload() {
+        WebDriver driver = DriverManager.getDriver();
         order.openPageUrl(driver, urlAdmin);
         sales.clickMenuSales();
         orderAdmin.enterSearch(numberID);
-        orderAdmin.clickIconDetailOrder("#"+numberID);
+        orderAdmin.clickIconDetailOrder("#" + numberID);
         orderAdmin.clickInvoice();
         orderAdmin.clickCreateInvoice();
         Assert.assertTrue(orderAdmin.verifyCreateInvoiceSuccess());
         orderAdmin.clickDownloadPdfInvoice();
     }
+
     @AfterClass
-    public void afterClass(){
+    public void afterClass() {
         closeBrowserDriver();
     }
 }

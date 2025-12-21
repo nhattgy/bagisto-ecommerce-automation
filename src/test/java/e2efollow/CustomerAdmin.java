@@ -4,6 +4,7 @@ import actions.PageObjects.admin.CustomerAdminPO;
 import actions.PageObjects.admin.PageGeneratorAdmin;
 import actions.PageObjects.user.*;
 import actions.commons.BaseTest;
+import actions.commons.DriverManager;
 import io.qameta.allure.*;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
@@ -16,7 +17,6 @@ import utilities.DataHelper;
 @Epic("Customer Management")
 @Feature("Admin Creates Customer & Customer Profile Completion")
 public class CustomerAdmin extends BaseTest {
-    private WebDriver driver;
     private CustomerAdminPO customerAdmin;
     private ProfilePO profile;
     private HomePagePO homePage;
@@ -29,7 +29,8 @@ public class CustomerAdmin extends BaseTest {
     @Parameters({"browser", "urlUser", "urlAdmin"})
     @BeforeClass
     public void beforeClass(String browserName, String urlUser, String urlAdmin) {
-        driver = getBrowserDriver(browserName);
+        getBrowserDriver(browserName);
+        WebDriver driver = DriverManager.getDriver();
         customerAdmin = PageGeneratorAdmin.getCustomerAdmin(driver);
         homePage = PageGeneratorUser.getHomePage(driver);
         authentication = PageGeneratorUser.getAuthentication(driver);
@@ -51,6 +52,7 @@ public class CustomerAdmin extends BaseTest {
     @Severity(SeverityLevel.CRITICAL)
     @Test
     public void E16_AdminAddCustomerUserLogin() {
+        WebDriver driver = DriverManager.getDriver();
         String parentID = driver.getWindowHandle();
         customerAdmin.clickLinkCustomer();
         customerAdmin.clickCreateCustomer();

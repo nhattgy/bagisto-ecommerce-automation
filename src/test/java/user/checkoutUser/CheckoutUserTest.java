@@ -2,6 +2,7 @@ package user.checkoutUser;
 
 import actions.PageObjects.user.*;
 import actions.commons.BaseTest;
+import actions.commons.DriverManager;
 import io.qameta.allure.*;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
@@ -14,7 +15,6 @@ import utilities.DataHelper;
 @Epic("E-commerce Checkout Flow")
 @Feature("Guest User Checkout")
 public class CheckoutUserTest extends BaseTest {
-    private WebDriver driver;
     private String urlUser;
     private HomePagePO homePage;
     private ProductPO product;
@@ -34,7 +34,8 @@ public class CheckoutUserTest extends BaseTest {
     @Parameters({"browser", "urlUser"})
     @BeforeClass
     public void beforeClass(String browserName, String urlUser) {
-        driver = getBrowserDriver(browserName);
+        getBrowserDriver(browserName);
+        WebDriver driver = DriverManager.getDriver();
         this.urlUser = urlUser;
         homePage = PageGeneratorUser.getHomePage(driver);
     }
@@ -44,7 +45,9 @@ public class CheckoutUserTest extends BaseTest {
     @Severity(SeverityLevel.CRITICAL)
     @Test
     public void U11_CheckoutAsGuest() {
+        WebDriver driver = DriverManager.getDriver();
         homePage.openPageUrl(driver, urlUser);
+        homePage.acceptCookie();
         homePage.hoverLinkMenuParentProduct("Woman");
         product = homePage.clickLinkMenuChildProduct("Casual Wear");
         product.clickOnProductByName("Blossom Breeze Cotton Printed Short Skirt");

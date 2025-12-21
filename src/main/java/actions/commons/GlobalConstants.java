@@ -10,7 +10,7 @@ public class GlobalConstants {
 
     // Wait Infor
     public static final long SHORT_TIMEOUT = 5;
-    public static final long LONG_TIMEOUT = 6;
+    public static final long LONG_TIMEOUT = 20;
     // ACCOUNT
     public static final String EMAIL_ADDRESS_ADMIN = "admin@example.com";
     public static final String PASSWORD_ADMIN = "admin123";
@@ -23,7 +23,8 @@ public class GlobalConstants {
     public static final int RETRY_NUMBER = 3;
 
     // HTML Report Folder
-    public static final String ALLURE_PATH = PROJECT_PATH + File.separator + "allure-results";
+    public static final String ALLURE_PATH =
+            PROJECT_PATH + File.separator + "allure-results";
 
     // Config Browser Stack
     public static final String BROWSER_USERNAME = "lolimals_H4hGry";

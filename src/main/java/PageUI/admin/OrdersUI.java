@@ -13,5 +13,4 @@ public class OrdersUI {
     public static final String BUTTON_CREATE_INVOICE = "xpath=//button[text() = ' Create Invoice ']";
     public static final String VERIFY_TEXT_CREATE_INVOICE = "xpath=//p[text() = ' Invoice created successfully']";
     public static final String LINK_DOWNLOAD_PDF = "xpath=//a[text() = ' Download PDF ']";
-
 }

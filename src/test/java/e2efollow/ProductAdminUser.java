@@ -7,6 +7,7 @@ import actions.PageObjects.user.HomePagePO;
 import actions.PageObjects.user.PageGeneratorUser;
 import actions.PageObjects.user.ProductPO;
 import actions.commons.BaseTest;
+import actions.commons.DriverManager;
 import io.qameta.allure.*;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
@@ -19,7 +20,6 @@ import utilities.DataHelper;
 @Epic("End-to-End Product Visibility Management")
 @Feature("Admin Controls Product Creation and Visibility on Storefront")
 public class ProductAdminUser extends BaseTest {
-    private WebDriver driver;
     private ProductAdminPO productAdmin;
     private CatalogAdminPO catalogAdmin;
     private HomePagePO homePage;
@@ -31,7 +31,8 @@ public class ProductAdminUser extends BaseTest {
     @Parameters({"browser", "urlAdmin", "urlUser"})
     @BeforeClass
     public void beforeClass(String browserName, String urlAdmin, String urlUser) {
-        driver = getBrowserDriver(browserName);
+        getBrowserDriver(browserName);
+        WebDriver driver = DriverManager.getDriver();
         LoginAdminBeforeTest(urlAdmin);
         this.urlUser = urlUser;
         this.urlAdmin = urlAdmin;
@@ -56,6 +57,7 @@ public class ProductAdminUser extends BaseTest {
     @Description("Verify that after admin creates a product in admin panel, it appears on the storefront when user searches for it.")
     @Test
     public void E02_AdminAddProductUserSeeInStore() {
+        WebDriver driver = DriverManager.getDriver();
         catalogAdmin.clickMenuCatalog();
         productAdmin = catalogAdmin.openProduct();
         productAdmin.clickButtonCreateProduct();
@@ -116,6 +118,7 @@ public class ProductAdminUser extends BaseTest {
     @Severity(SeverityLevel.CRITICAL)
     @Test
     public void E03_AdminDeactivatesUserSearch() {
+        WebDriver driver = DriverManager.getDriver();
         homePage.openNewTabJs(driver);
         homePage.switchToWindowByTitle(driver, "about:blank");
         homePage.openPageUrl(driver, urlAdmin);
@@ -135,6 +138,7 @@ public class ProductAdminUser extends BaseTest {
     @Severity(SeverityLevel.CRITICAL)
     @Test
     public void E04_AdminEditPriceUserCheckPrice(){
+        WebDriver driver = DriverManager.getDriver();
         homePage.openNewTabJs(driver);
         homePage.switchToWindowByTitle(driver, "about:blank");
         homePage.openPageUrl(driver, urlAdmin);

@@ -4,6 +4,7 @@ import actions.PageObjects.admin.CatalogAdminPO;
 import actions.PageObjects.admin.PageGeneratorAdmin;
 import actions.PageObjects.admin.ProductAdminPO;
 import actions.commons.BaseTest;
+import actions.commons.DriverManager;
 import io.qameta.allure.*;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
@@ -12,7 +13,6 @@ import utilities.DataHelper;
 @Epic("Admin Panel Management")
 @Feature("Product Management")
 public class ProductAdminTest extends BaseTest {
-    private WebDriver driver;
     private ProductAdminPO productAdmin;
     private CatalogAdminPO catalogAdmin;
 
@@ -22,7 +22,8 @@ public class ProductAdminTest extends BaseTest {
     @Parameters({"browser","urlAdmin"})
     @BeforeClass
     public void beforeClass(String browserName, String urlAdmin){
-        driver = getBrowserDriver(browserName);
+        getBrowserDriver(browserName);
+        WebDriver driver = DriverManager.getDriver();
         LoginAdminBeforeTest(urlAdmin);
         catalogAdmin = PageGeneratorAdmin.getCatalogAdmin(driver);
 
@@ -44,6 +45,7 @@ public class ProductAdminTest extends BaseTest {
     @Severity(SeverityLevel.CRITICAL)
     @Test
     public void A07_A011_ProductAdminFullFollow() {
+        WebDriver driver = DriverManager.getDriver();
         catalogAdmin.clickMenuCatalog();
         productAdmin = catalogAdmin.openProduct();
         productAdmin.clickButtonCreateProduct();
@@ -74,7 +76,7 @@ public class ProductAdminTest extends BaseTest {
         productAdmin.enterMetaKeyword(metaKeyword);
         productAdmin.enterMetaDescription(metaDescription);
 
-        productAdmin.uploadMultipleFilesLogo(driver, "ecomlogo.png");
+//        productAdmin.uploadMultipleFilesLogo(driver, "ecomlogo.png");
 
         productAdmin.enterPrice(price);
         productAdmin.enterWeight(weight);

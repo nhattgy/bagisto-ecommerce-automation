@@ -3,6 +3,7 @@ package e2efollow;
 import actions.PageObjects.admin.*;
 import actions.PageObjects.user.*;
 import actions.commons.BaseTest;
+import actions.commons.DriverManager;
 import actions.commons.GlobalConstants;
 import io.qameta.allure.*;
 import org.openqa.selenium.WebDriver;
@@ -15,7 +16,6 @@ import org.testng.annotations.Test;
 @Epic("E2E Flow")
 @Feature("Orders Management")
 public class OrdersUserToAdminView extends BaseTest {
-    private WebDriver driver;
     private String urlUser;
     private HomePagePO homePage;
     private ProductPO product;
@@ -32,7 +32,8 @@ public class OrdersUserToAdminView extends BaseTest {
     @Parameters({"browser", "urlAdmin", "urlUser"})
     @BeforeClass
     public void beforeClass(String browserName, String urlAdmin, String urlUser) {
-        driver = getBrowserDriver(browserName);
+        getBrowserDriver(browserName);
+        WebDriver driver = DriverManager.getDriver();
         this.urlUser = urlUser;
         this.urlAdmin = urlAdmin;
         homePage = PageGeneratorUser.getHomePage(driver);
@@ -48,6 +49,7 @@ public class OrdersUserToAdminView extends BaseTest {
     @Severity(SeverityLevel.CRITICAL)
     @Test
     public void E05_OrdersUserPlacesOrderAdminSeesNewOrder() {
+        WebDriver driver = DriverManager.getDriver();
         homePage.hoverLinkMenuParentProduct("Woman");
         product = homePage.clickLinkMenuChildProduct("Casual Wear");
         product.clickOnProductByName("Blossom Breeze Cotton Printed Short Skirt");

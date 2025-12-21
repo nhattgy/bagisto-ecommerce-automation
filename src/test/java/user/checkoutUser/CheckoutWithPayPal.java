@@ -2,6 +2,7 @@ package user.checkoutUser;
 
 import actions.PageObjects.user.*;
 import actions.commons.BaseTest;
+import actions.commons.DriverManager;
 import io.qameta.allure.*;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
@@ -9,10 +10,10 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
+
 @Epic("Checkout Functionality")
 @Feature("Checkout with PayPal")
 public class CheckoutWithPayPal extends BaseTest {
-    private WebDriver driver;
     private HomePagePO homePage;
     private ProductPO product;
     private CartPO cart;
@@ -21,15 +22,18 @@ public class CheckoutWithPayPal extends BaseTest {
     @Parameters({"browser", "urlUser"})
     @BeforeClass
     public void beforeClass(String browserName, String urlUser) {
-        driver = getBrowserDriver(browserName);
+        getBrowserDriver(browserName);
+        WebDriver driver = DriverManager.getDriver();
         homePage = PageGeneratorUser.getHomePage(driver);
         LoginUserBeforeTest(urlUser);
     }
+
     @Story("Logged-in user completes order using PayPal payment")
     @Description("Verify checkout flow using PayPal as a logged-in user")
     @Severity(SeverityLevel.CRITICAL)
     @Test
-    public void U12_CheckoutAsLoggedInUser(){
+    public void U12_CheckoutAsLoggedInUser() {
+        WebDriver driver = DriverManager.getDriver();
         homePage.hoverLinkMenuParentProduct("Woman");
         product = homePage.clickLinkMenuChildProduct("Casual Wear");
         product.clickOnProductByName("Blossom Breeze Cotton Printed Short Skirt");
@@ -57,8 +61,9 @@ public class CheckoutWithPayPal extends BaseTest {
         checkout.switchToWindowByTitle(driver, "Thank you for your order!");
         Assert.assertTrue(checkout.verifyOrderSuccess());
     }
+
     @AfterClass
-    public void afterClass(){
+    public void afterClass() {
         closeBrowserDriver();
     }
 }

@@ -4,6 +4,7 @@ import actions.PageObjects.admin.CouponCodePO;
 import actions.PageObjects.admin.MarketingPO;
 import actions.PageObjects.admin.PageGeneratorAdmin;
 import actions.commons.BaseTest;
+import actions.commons.DriverManager;
 import io.qameta.allure.*;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
@@ -14,7 +15,6 @@ import org.testng.annotations.Test;
 @Epic("Marketing - Coupon Code")
 @Feature("Delete Coupon")
 public class MarketingAdminTest extends BaseTest {
-    private WebDriver driver;
     private MarketingPO marketing;
     private CouponCodePO couponCode;
     private String nameCoupon = "couponCode"+randomNumber();
@@ -22,7 +22,8 @@ public class MarketingAdminTest extends BaseTest {
     @Parameters({"browser","urlAdmin"})
     @BeforeClass
     public void beforeClass(String browserName, String urlAdmin){
-        driver = getBrowserDriver(browserName);
+        getBrowserDriver(browserName);
+        WebDriver driver = DriverManager.getDriver();
         LoginAdminBeforeTest(urlAdmin);
         marketing = PageGeneratorAdmin.getMarketingAdmin(driver);
     }
