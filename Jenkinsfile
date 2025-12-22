@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     stages {
-        stage('Checkout') {
+        stage('Automation Bagisto full') {
             steps {
                 git branch: 'master',
                     url: 'https://github.com/nhattgy/bagisto-ecommerce-automation.git',
