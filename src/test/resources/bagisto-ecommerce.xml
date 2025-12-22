@@ -11,7 +11,7 @@
 
     <!-- =============================== E2E FLOW TESTS =============================== -->
     <test name="E2E Flow Tests">
-        <parameter name="browser" value="chrome"/>
+        <parameter name="browser" value="HEADLESS_CHROME"/>
         <classes>
                         <class name="e2efollow.CustomerAdmin"/>
                         <class name="e2efollow.OrdersUserToAdminView"/>
@@ -26,7 +26,7 @@
 
     <!--     =============================== USER MODULE TESTS =============================== -->
     <test name="User Module Tests">
-        <parameter name="browser" value="chrome"/>
+        <parameter name="browser" value="HEADLESS_CHROME"/>
         <classes>
                         <class name="user.authenticationUser.AuthenticationUserTest"/>
                         <class name="user.cartUser.CartUserTest"/>
@@ -41,7 +41,7 @@
 
     <!-- =============================== ADMIN MODULE TESTS =============================== -->
     <test name="Admin Module Tests">
-        <parameter name="browser" value="chrome"/>
+        <parameter name="browser" value="HEADLESS_CHROME"/>
         <classes>
                         <class name="admin.authenticationAdmin.AuthenticationAdminTest"/>
                         <class name="admin.categoryAdmin.CategoryAdminTest"/>
