@@ -2,7 +2,8 @@ pipeline {
     agent any
 
     stages {
-        stage('Automation Bagisto full') {
+
+        stage('Checkout Code') {
             steps {
                 git branch: 'master',
                     url: 'https://github.com/nhattgy/bagisto-ecommerce-automation.git',
@@ -10,21 +11,21 @@ pipeline {
             }
         }
 
-        stage('Prepare Allure History') {
+        stage('Build Docker Image') {
             steps {
-                script {
-                    if (fileExists('allure-report\\history')) {
-                        bat 'xcopy /E /I /Y allure-report\\history allure-results\\history'
-                    } else {
-                        echo 'No previous Allure history found'
-                    }
-                }
+                bat 'docker build -t bagisto-automation .'
             }
         }
 
-        stage('Run Test') {
+        stage('Run Automation Test (Docker)') {
             steps {
-                bat 'mvn clean test'
+                bat '''
+                docker run --rm ^
+                  -v "%cd%":/app ^
+                  -w /app ^
+                  bagisto-automation ^
+                  mvn clean test
+                '''
             }
         }
     }
