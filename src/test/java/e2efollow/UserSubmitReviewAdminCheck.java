@@ -29,7 +29,7 @@ public class UserSubmitReviewAdminCheck extends BaseTest {
     @Parameters({"browser", "urlUser", "urlAdmin"})
     @BeforeClass
     public void beforeClass(String browserName, String urlUser, String urlAdmin) {
-        getBrowserDriver(browserName);
+        getBrowserDocker(browserName);
         WebDriver driver = DriverManager.getDriver();
         homePage = PageGeneratorUser.getHomePage(driver);
         customerAdmin = PageGeneratorAdmin.getCustomerAdmin(driver);

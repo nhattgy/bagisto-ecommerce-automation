@@ -22,7 +22,7 @@ public class CheckoutUserIsLogged extends BaseTest {
     @Parameters({"browser", "urlUser"})
     @BeforeClass
     public void beforeClass(String browserName, String urlUser) {
-        getBrowserDriver(browserName);
+        getBrowserDocker(browserName);
         WebDriver driver = DriverManager.getDriver();
         homePage = PageGeneratorUser.getHomePage(driver);
         LoginUserBeforeTest(urlUser);

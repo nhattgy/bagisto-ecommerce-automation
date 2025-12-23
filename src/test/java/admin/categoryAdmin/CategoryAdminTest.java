@@ -23,7 +23,7 @@ public class CategoryAdminTest extends BaseTest {
     @BeforeClass
     @Step("Pre-condition: Login to Admin site and prepare test data")
     public void beforeClass(String browserName, String urlAdmin) {
-        getBrowserDriver(browserName);
+        getBrowserDocker(browserName);
         LoginAdminBeforeTest(urlAdmin);
         WebDriver driver = DriverManager.getDriver();
         catalogAdmin = PageGeneratorAdmin.getCatalogAdmin(driver);
