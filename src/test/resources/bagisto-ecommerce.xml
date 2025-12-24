@@ -11,7 +11,7 @@
 
     <!-- =============================== E2E FLOW TESTS =============================== -->
     <test name="E2E Flow Tests">
-        <parameter name="browser" value="CHROME"/>
+        <parameter name="browser" value="chrome"/>
         <classes>
                         <class name="e2efollow.CustomerAdmin"/>
                         <class name="e2efollow.OrdersUserToAdminView"/>
