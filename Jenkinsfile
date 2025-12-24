@@ -11,27 +11,26 @@ pipeline {
             }
         }
 
-        stage('Build Docker Image') {
+        stage('Start Selenium Grid (10 Chrome Nodes)') {
             steps {
-                bat 'docker build -t bagisto-automation .'
+                bat '''
+                docker compose down
+                docker compose up -d --scale chrome=10
+                '''
             }
         }
 
-        stage('Run Automation Test (Docker)') {
+        stage('Run Automation Test (Local Maven)') {
             steps {
-                bat '''
-                docker run --rm ^
-                  -v "%cd%":/app ^
-                  -w /app ^
-                  bagisto-automation ^
-                  mvn clean test
-                '''
+                bat 'mvn clean test'
             }
         }
     }
 
     post {
         always {
+            bat 'docker compose down'
+
             allure([
                 includeProperties: false,
                 results: [[path: 'allure-results']]
