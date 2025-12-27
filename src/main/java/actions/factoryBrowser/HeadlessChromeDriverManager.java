@@ -12,22 +12,18 @@ public class HeadlessChromeDriverManager implements BrowserFactory {
 
         ChromeOptions options = new ChromeOptions();
 
-        options.addArguments("--headless=new");
-        options.addArguments("--window-size=1920,1080");
+options.addArguments("--headless=new");
+options.addArguments("--window-size=1680,1050");
 
-        options.addArguments("--no-sandbox");
-        options.addArguments("--disable-dev-shm-usage");
+// giống Mac Retina: DPR = 2
+options.addArguments("--force-device-scale-factor=2");
+options.addArguments("--high-dpi-support=2");
 
-        // Reduce UI/overlay surprises
-        options.addArguments("--disable-notifications");
-        options.addArguments("--force-device-scale-factor=1");
-        options.addArguments("--high-dpi-support=1");
+options.addArguments("--no-sandbox");
+options.addArguments("--disable-dev-shm-usage");
+options.addArguments("--disable-notifications");
 
-        // If you still need it, add back:
-        // options.addArguments("--remote-allow-origins=*");
+return new ChromeDriver(options);
 
-        options.setPageLoadStrategy(PageLoadStrategy.NORMAL);
-
-        return new ChromeDriver(options);
     }
 }
