@@ -10,23 +10,24 @@ public class HeadlessChromeDriverManager implements BrowserFactory {
     @Override
     public WebDriver getBrowserDriver() {
 
-        ChromeOptions chromeOptions = new ChromeOptions();
+        ChromeOptions options = new ChromeOptions();
 
-        // Headless mode for CI / Jenkins
-        chromeOptions.addArguments("--headless=new");
-        chromeOptions.addArguments("--window-size=1920,1080");
+        options.addArguments("--headless=new");
+        options.addArguments("--window-size=1920,1080");
 
-        // Stability options for Linux / Docker / CI
-        chromeOptions.addArguments("--disable-gpu");
-        chromeOptions.addArguments("--disable-dev-shm-usage");
-        chromeOptions.addArguments("--no-sandbox");
+        options.addArguments("--no-sandbox");
+        options.addArguments("--disable-dev-shm-usage");
 
-        // Optional: only needed when Chrome & Driver version mismatch
-        chromeOptions.addArguments("--remote-allow-origins=*");
+        // Reduce UI/overlay surprises
+        options.addArguments("--disable-notifications");
+        options.addArguments("--force-device-scale-factor=1");
+        options.addArguments("--high-dpi-support=1");
 
-        // Page load strategy for stable execution
-        chromeOptions.setPageLoadStrategy(PageLoadStrategy.NORMAL);
+        // If you still need it, add back:
+        // options.addArguments("--remote-allow-origins=*");
 
-        return new ChromeDriver(chromeOptions);
+        options.setPageLoadStrategy(PageLoadStrategy.NORMAL);
+
+        return new ChromeDriver(options);
     }
 }

@@ -41,7 +41,7 @@
 
     <!-- =============================== ADMIN MODULE TESTS =============================== -->
     <test name="Admin Module Tests">
-        <parameter name="browser" value="chrome"/>
+        <parameter name="browser" value="HEADLESS_CHROME"/>
         <classes>
                         <class name="admin.authenticationAdmin.AuthenticationAdminTest"/>
                         <class name="admin.categoryAdmin.CategoryAdminTest"/>
