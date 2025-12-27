@@ -39,7 +39,7 @@ public class AdminCreateCouponUserApplies extends BaseTest {
     @Parameters({"browser", "urlUser", "urlAdmin"})
     @BeforeClass
     public void beforeClass(String browserName, String urlUser, String urlAdmin) {
-        getBrowserDocker(browserName);
+        getBrowserDriver(browserName);
         WebDriver driver = DriverManager.getDriver();
         this.urlUser = urlUser;
         this.urlAdmin = urlAdmin;

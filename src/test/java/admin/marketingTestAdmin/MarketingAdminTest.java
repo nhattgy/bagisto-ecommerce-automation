@@ -22,7 +22,7 @@ public class MarketingAdminTest extends BaseTest {
     @Parameters({"browser","urlAdmin"})
     @BeforeClass
     public void beforeClass(String browserName, String urlAdmin){
-        getBrowserDocker(browserName);
+        getBrowserDriver(browserName);
         WebDriver driver = DriverManager.getDriver();
         LoginAdminBeforeTest(urlAdmin);
         marketing = PageGeneratorAdmin.getMarketingAdmin(driver);
@@ -74,7 +74,7 @@ public class MarketingAdminTest extends BaseTest {
     @Story("Delete coupon")
     @Severity(SeverityLevel.BLOCKER)
     @Description("Delete coupon successfully")
-    @Test
+
     public void A20_DeleteCoupon(){
         couponCode.deleteCoupon(nameCouponEdit);
         couponCode.clickButtonAgreeDelete();

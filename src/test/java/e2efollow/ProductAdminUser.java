@@ -31,7 +31,7 @@ public class ProductAdminUser extends BaseTest {
     @Parameters({"browser", "urlAdmin", "urlUser"})
     @BeforeClass
     public void beforeClass(String browserName, String urlAdmin, String urlUser) {
-        getBrowserDocker(browserName);
+        getBrowserDriver(browserName);
         WebDriver driver = DriverManager.getDriver();
         LoginAdminBeforeTest(urlAdmin);
         this.urlUser = urlUser;

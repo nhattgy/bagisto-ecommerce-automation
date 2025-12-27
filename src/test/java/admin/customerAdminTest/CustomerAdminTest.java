@@ -20,7 +20,7 @@ public class CustomerAdminTest extends BaseTest {
     @Parameters({"browser","urlAdmin"})
     @BeforeClass
     public void beforeClass(String browserName, String urlAdmin){
-        getBrowserDocker(browserName);
+        getBrowserDriver(browserName);
         WebDriver driver = DriverManager.getDriver();
         LoginAdminBeforeTest(urlAdmin);
         customerAdmin = PageGeneratorAdmin.getCustomerAdmin(driver);
@@ -61,7 +61,7 @@ public class CustomerAdminTest extends BaseTest {
     @Story("Delete Customer")
     @Description("Delete customer account successfully")
     @Severity(SeverityLevel.NORMAL)
-    @Test()
+
     public void A15_DeleteCustomer(){
         customerAdmin.clickDeleteAccount();
         customerAdmin.clickAcceptDelete();

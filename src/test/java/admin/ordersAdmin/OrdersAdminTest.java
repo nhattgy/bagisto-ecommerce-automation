@@ -22,7 +22,7 @@ public class OrdersAdminTest extends BaseTest {
     @Parameters({"browser", "urlAdmin"})
     @BeforeClass
     public void beforeClass(String browserName, String urlAdmin) {
-        getBrowserDocker(browserName);
+        getBrowserDriver(browserName);
         WebDriver driver = DriverManager.getDriver();
         LoginAdminBeforeTest(urlAdmin);
         sales = PageGeneratorAdmin.getSalesAdmin(driver);

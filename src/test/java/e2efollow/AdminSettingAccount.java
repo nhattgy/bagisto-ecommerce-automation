@@ -25,7 +25,7 @@ public class AdminSettingAccount extends BaseTest {
     @BeforeClass
     public void beforeClass(String browser, String urlUser, String urlAdmin) {
 
-        getBrowserDocker(browser);
+        getBrowserDriver(browser);
         WebDriver driver = DriverManager.getDriver();
         LoginAdminBeforeTest(urlAdmin);
 

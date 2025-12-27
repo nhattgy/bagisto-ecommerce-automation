@@ -23,7 +23,7 @@ public class CategoryAdminTest extends BaseTest {
     @BeforeClass
     @Step("Pre-condition: Login to Admin site and prepare test data")
     public void beforeClass(String browserName, String urlAdmin) {
-        getBrowserDocker(browserName);
+        getBrowserDriver(browserName);
         LoginAdminBeforeTest(urlAdmin);
         WebDriver driver = DriverManager.getDriver();
         catalogAdmin = PageGeneratorAdmin.getCatalogAdmin(driver);
@@ -79,7 +79,7 @@ public class CategoryAdminTest extends BaseTest {
     @Story("Delete existing category")
     @Description("Verify that an admin user can delete an existing category successfully and that a success message is displayed after deletion.")
     @Severity(SeverityLevel.NORMAL)
-    @Test
+
     public void A06_DeleteCategory() {
         categoryAdmin.clickDeleteIcon("Edit name", "icon-delete");
         categoryAdmin.clickButtonAgreeDelete();

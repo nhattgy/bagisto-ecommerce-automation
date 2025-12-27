@@ -25,7 +25,7 @@ public class ProfileUserTest extends BaseTest {
     @Parameters({"browser", "urlUser"})
     @BeforeClass
     public void beforeClass(String browserName, String urlUser) {
-        getBrowserDocker(browserName);
+        getBrowserDriver(browserName);
         WebDriver driver = DriverManager.getDriver();
         homePage = PageGeneratorUser.getHomePage(driver);
         authentication = PageGeneratorUser.getAuthentication(driver);

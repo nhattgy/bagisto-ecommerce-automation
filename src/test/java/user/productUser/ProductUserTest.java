@@ -23,7 +23,7 @@ public class ProductUserTest extends BaseTest {
     @Parameters({"browser", "urlUser"})
     @BeforeClass
     public void beforeClass(String browserName, String urlUser) {
-        getBrowserDocker(browserName);
+        getBrowserDriver(browserName);
         WebDriver driver = DriverManager.getDriver();
         this.urlUser = urlUser;
         homePage = PageGeneratorUser.getHomePage(driver);

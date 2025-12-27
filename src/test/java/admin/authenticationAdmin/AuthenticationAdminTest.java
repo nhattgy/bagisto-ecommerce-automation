@@ -24,7 +24,7 @@ public class AuthenticationAdminTest extends BaseTest {
     @Parameters({"browser", "urlAdmin"})
     @BeforeClass
     public void beforeClass(String browserName, String urlAdmin) {
-        getBrowserDocker(browserName);
+        getBrowserDriver(browserName);
         this.urlAdmin = urlAdmin;
         WebDriver driver = DriverManager.getDriver();
         authenticationAdmin = PageGeneratorAdmin.getAuthenticationAdmin(driver);
