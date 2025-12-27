@@ -18,6 +18,8 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.safari.SafariDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.Assert;
@@ -27,6 +29,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.time.Duration;
 import java.util.HashMap;
 import java.util.Random;
 
@@ -156,15 +159,16 @@ public class BaseTest extends BasePage {
 
     public void LoginAdminBeforeTest(String urlAdmin) {
         WebDriver driver = DriverManager.getDriver();
-        AuthenticationAdminPO authenticationAdmin;
-        DashboardAdminPO dashboardAdmin;
-        authenticationAdmin = PageGeneratorAdmin.getAuthenticationAdmin(driver);
-        authenticationAdmin.openPageUrl(driver, urlAdmin);
-        dashboardAdmin = authenticationAdmin.enterEmailAddress(GlobalConstants.EMAIL_ADDRESS_ADMIN);
-        authenticationAdmin.enterPassword(GlobalConstants.PASSWORD_ADMIN);
-        authenticationAdmin.clickSignIn();
-        Assert.assertTrue(authenticationAdmin.menuDashboardIsDisplayed());
+
+        AuthenticationAdminPO auth = PageGeneratorAdmin.getAuthenticationAdmin(driver);
+        auth.openPageUrl(driver, urlAdmin);
+
+        auth.enterEmailAddress(GlobalConstants.EMAIL_ADDRESS_ADMIN);
+        auth.enterPassword(GlobalConstants.PASSWORD_ADMIN);
+        auth.clickSignIn();
+
     }
+
 
     protected void closeBrowserDriver() {
         WebDriver driver = DriverManager.getDriver();

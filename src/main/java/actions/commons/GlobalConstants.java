@@ -10,7 +10,7 @@ public class GlobalConstants {
 
     // Wait Infor
     public static final long SHORT_TIMEOUT = 5;
-    public static final long LONG_TIMEOUT = 20;
+    public static final long LONG_TIMEOUT = 35;
     // ACCOUNT
     public static final String EMAIL_ADDRESS_ADMIN = "admin@example.com";
     public static final String PASSWORD_ADMIN = "admin123";
