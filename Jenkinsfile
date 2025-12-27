@@ -11,15 +11,6 @@ pipeline {
             }
         }
 
-        stage('Start Selenium Grid (10 Chrome Nodes)') {
-            steps {
-                bat '''
-                docker compose down
-                docker compose up -d --scale chrome=10
-                '''
-            }
-        }
-
         stage('Run Automation Test (Local Maven)') {
             steps {
                 bat 'mvn clean test'
@@ -27,14 +18,5 @@ pipeline {
         }
     }
 
-    post {
-        always {
-            bat 'docker compose down'
 
-            allure([
-                includeProperties: false,
-                results: [[path: 'allure-results']]
-            ])
-        }
-    }
 }
